@@ -78,18 +78,20 @@
                                 <a href="#"><i class="fa fa-linkedin"></i></a>
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
-                            <div class="header__top__right__language">
-                                <img src="img/language.png" alt="">
-                                <div>English</div>
-                                <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li><a href="#">Spanis</a></li>
-                                    <li><a href="#">English</a></li>
-                                </ul>
-                            </div>
-                            <div class="header__top__right__auth">
-                                <a href="{{ url('login') }}"><i class="fa fa-user"></i> Login</a>
-                            </div>
+                            @if (Auth::check())
+                                <div class="header__top__right__language">
+                                    <div>{{ Auth::user()->name }}</div>
+                                    <span class="arrow_carrot-down"></span>
+                                    <ul>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="{{ url('logout') }}">Đăng xuất</a></li>
+                                    </ul>
+                                </div>
+                            @else
+                                <div class="header__top__right__auth">
+                                    <a href="{{ url('login') }}"><i class="fa fa-user"></i> Đăng nhập</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
