@@ -34,3 +34,7 @@ Route::get('/register', function(){
 });
 
 Route::post('/register', 'App\Http\Controllers\LoginController@postRegister');
+
+Route::get('/shopProduct', function(){
+    return view('userPage.shopProducts');
+});
