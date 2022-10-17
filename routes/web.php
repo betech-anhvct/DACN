@@ -56,8 +56,12 @@ Route::get('/admin', function () {
 
 Route::get('/admin/users', [
     'as' => 'usersAP',
-    'uses' => function () {
+    'uses' => function(){
         return view('adminPage.users');
     }
+]);
+
+Route::get('/admin/getUsers', [
+    'uses' => 'App\Http\Controllers\UserController@getUser'
 ]);
 //-----------------------------END-ADMIN-PAGE----------------------------------//
