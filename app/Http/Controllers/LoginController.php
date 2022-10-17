@@ -47,6 +47,6 @@ class LoginController extends Controller {
 
     public function logout() {
         Auth::logout();
-        return view('userPage.home');
+        return redirect(url('/index'));
     }
 }
