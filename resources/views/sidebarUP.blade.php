@@ -101,13 +101,18 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                    <a href="./index"><img src="img/logo.png" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
                         <li class="active"><a href="{{ url('/index') }}">Trang chủ</a></li>
+                        @auth
+                        @if (Auth::user()->role != 0)
+                        <li class="active"><a href="{{ url('/admin') }}">Trang quản lí</a></li>
+                        @endif
+                        @endauth
                         <li><a href="{{ url('shopProduct') }}">Sản phẩm</a></li>
                         <li><a href="./contact.html">Contact</a></li>
                     </ul>
