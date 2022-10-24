@@ -64,4 +64,8 @@ Route::get('/admin/users', [
 Route::get('/admin/users', [
     'uses' => 'App\Http\Controllers\UserController@getUser'
 ]);
+
+Route::post('/admin/users/update/{id}', [
+    'uses' => 'App\Http\Controllers\UserController@updateUser'
+]);
 //-----------------------------END-ADMIN-PAGE----------------------------------//

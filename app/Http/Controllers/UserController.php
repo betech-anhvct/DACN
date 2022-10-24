@@ -10,4 +10,8 @@ class UserController extends BaseController {
         $users = User::all();
         return view('adminPage.users', compact('users'));
     }
+
+    public function updateUser(){
+        1;
+    }
 }

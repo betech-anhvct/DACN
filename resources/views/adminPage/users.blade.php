@@ -62,7 +62,7 @@
                                                     Quản trị
                                                     @endif</td>
                                                 <th class="col-2" style="text-align:right;">
-                                                    <button class="btn btn-outline-primary m-1">Chỉnh sửa</button>
+                                                    <button class="btn btn-outline-primary m-1" name="btn-update[{{ $user->id }}]" id={{ $user->id }}>Chỉnh sửa</button>
                                                     <button class="btn btn-outline-danger m-1">Xóa</button>
                                                 </th>
                                             </tr>
@@ -91,4 +91,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('[name^="btn-update"]').each(function(){
+        $(this).click(function(){
+            var id = $(this).prop('id');
+            $.ajax({
+                url: '/admin/users/update/'+id,
+                type: 'POST',
+                dataType: 'html',
+                data: {
+                    a: "content abc",
+                    b: "content bcd"
+                }
+            }).done(function(ketqua) {
+                $('#noidung').html(ketqua);
+            });
+        });
+    });
+</script>
 @endsection
