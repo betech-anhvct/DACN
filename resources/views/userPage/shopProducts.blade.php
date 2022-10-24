@@ -1,6 +1,6 @@
 @extends('masterUP')
 @section('contentUP')
 
-view của shop
+view của shop 1
 
 @endsection
