@@ -61,7 +61,7 @@ Route::get('/admin/users', [
     }
 ]);
 
-Route::get('/admin/getUsers', [
+Route::get('/admin/users', [
     'uses' => 'App\Http\Controllers\UserController@getUser'
 ]);
 //-----------------------------END-ADMIN-PAGE----------------------------------//

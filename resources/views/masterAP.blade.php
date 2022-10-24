@@ -20,7 +20,8 @@
     <!-- Standard iPhone Touch Icon-->
     <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
     <!-- Styles -->
-    <link href="{{ asset('css/lib/calendar2/pignose.calendar.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"/>
+ 
     <link href="{{ asset('css/lib/chartist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/lib/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/lib/themify-icons.css') }}" rel="stylesheet">
