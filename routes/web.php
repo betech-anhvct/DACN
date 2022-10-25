@@ -42,9 +42,9 @@ Route::get('/shopProduct', [
     'uses' => 'App\Http\Controllers\ProductsController@getProduct'
 ]);
 
-route::get('/current_Products', 'App\Http\Controllers\ProductsDetailController@current_Product');
+route::get('/current_Products', 'App\Http\Controllers\productsDetailController@current_Product');
 
-route::get('/shopProduct/ProductDetail/{id}', 'App\Http\Controllers\ProductsDetailController@view_Product');
+route::get('/shopProduct/ProductDetail/{id}', 'App\Http\Controllers\productsDetailController@view_Product');
 
 
 //-----------------------------END-USER-PAGE-----------------------------------//
