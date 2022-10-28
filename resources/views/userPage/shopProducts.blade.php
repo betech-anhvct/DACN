@@ -208,7 +208,7 @@
                                             <div class="product__discount__percent">-20%</div>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                                <li><a href="shopProductDetail/{{ $product['id']}}"><i class="fa fa-search" aria-hidden="true"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                             </ul>
                                         </div>
@@ -254,7 +254,7 @@
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                        <li><a href="shopProductDetail/{{ $product['id']}}"><i class="fa fa-search" aria-hidden="true"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
@@ -278,6 +278,7 @@
         </div>
     </section>
     <!-- Product Section End -->
+
 
         <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>

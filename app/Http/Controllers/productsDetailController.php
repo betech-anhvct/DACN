@@ -7,14 +7,11 @@ use Illuminate\Http\Request;
 
 class productsDetailController extends Controller
 {
-    public function current_Products()
+    public function getProduct()
     {
-        $products = Products::all();
-        return view('userPage.shopProductsDetail', ['products' => $products]);
-    }
-    public function view_Products()
-    {
-        $products = Products::with('ProductDetail')->findOrFail($id);
-        return view::make('products.current_Products.ProductDetail',compact($products));
+        $products = (Products::all());
+        $topProducts = Products::all();
+        return view('userPage.shopProductsDetail', compact('products', 'topProducts'));
     }
 }
+
