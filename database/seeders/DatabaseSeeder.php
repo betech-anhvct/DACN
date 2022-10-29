@@ -80,5 +80,19 @@ class DatabaseSeeder extends Seeder {
         (39, '6', 'Gà truyền thống', 'Gà rán vỏ giòn truyền thống', '79000', '1', NULL, NULL);
         ");
         DB::statement($sql);
+
+        if (DB::table('categories')) {
+            DB::table('categories')->truncate();
+        }
+        $sql = "INSERT INTO `categories` (`id`, `name`) VALUES
+        (1, 'Bugger'),
+        (2, 'Pizza'),
+        (3, 'Salad'),
+        (4, 'Tacos'),
+        (5, 'Đồ uống'),
+        (6, 'Gà rán')";
+        DB::statement($sql);
+
+
     }
 }

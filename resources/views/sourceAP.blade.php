@@ -26,9 +26,9 @@
 <script src=" {{ asset('js/lib/owl-carousel/owl.carousel-init.js') }}"></script>
 <!-- scripit init-->
 <script src=" {{ asset('js/dashboard2.js') }}"></script>
-
-<script src="{{ asset('js/lib/data-table/datatables.min.js') }}"></script>
-<script src="{{ asset('js/lib/data-table/dataTables.buttons.min.js') }}"></script>
+{{-- <script src="{{ asset('js/lib/data-table/datatables.min.js') }}"></script> --}}
+<script src="{{ asset('js/lib/data-table/jquery.dataTables.js') }}"></script>
+{{-- <script src="{{ asset('js/lib/data-table/dataTables.buttons.min.js') }}"></script> --}}
 <script src="{{ asset('js/lib/data-table/jszip.min.js') }}"></script>
 <script src="{{ asset('js/lib/data-table/pdfmake.min.js') }}"></script>
 <script src="{{ asset('js/lib/data-table/vfs_fonts.js') }}"></script>

@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 class UserController extends BaseController {
     public function getUser() {
         $users = User::all();
-        return response()->json($users);
+        return view('adminPage.users', compact('users'));
+    }
+
+    public function updateUser(){
+        1;
     }
 }

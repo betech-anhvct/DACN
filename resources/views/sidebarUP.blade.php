@@ -104,7 +104,7 @@
                     <a href="./index"><img src="img/logo.png" alt=""></a>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="d-flex justify-content-around col-lg-6">
                 <nav class="header__menu">
                     <ul>
                         <li class="active"><a href="{{ url('/index') }}">Trang chủ</a></li>
