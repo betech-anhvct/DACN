@@ -181,6 +181,8 @@
         </div>
         <div class="container">
             <div class="row">
+                {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.9544103877597!2d106.67564341480043!3d10.737997192347624!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f62a90e5dbd%3A0x674d5126513db295!2zVHLGsOG7nW5nIMSQ4bqhaSBI4buNYyBDw7RuZyBOZ2jhu4cgU8OgaSBHw7Ju!5e0!3m2!1svi!2s!4v1638182847795!5m2!1svi!2s" height="610" width="100%" style="border:0" allowfullscreen="">
+                </iframe> --}}
                 @foreach ($topProducts as $product )
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
@@ -199,7 +201,6 @@
                 </div>
                 @endforeach
             </div>
-
         </div>
     </section>
     <!-- Related Product Section End -->
