@@ -42,8 +42,8 @@ Route::get('/shopProduct', [
     'uses' => 'App\Http\Controllers\ProductsController@getProduct'
 ]);
 
-route::get('/shopProductDetail/{id}',[
-    'uses' => 'App\Http\Controllers\ProductsDetailController@getProduct'
+route::get('/shopProductDetail/{sid}',[
+    'uses' => 'App\Http\Controllers\ProductsController@getProductDetail'
 ]);
 //-----------------------------END-USER-PAGE-----------------------------------//
 
