@@ -38,10 +38,13 @@ Route::get('/register', function () {
 
 Route::post('/register', 'App\Http\Controllers\LoginController@postRegister');
 
-Route::get('/shopProduct', function () {
-    return view('userPage.shopProducts');
-});
+Route::get('/shopProduct', [
+    'uses' => 'App\Http\Controllers\ProductsController@getProduct'
+]);
 
+route::get('/shopProductDetail/{sid}',[
+    'uses' => 'App\Http\Controllers\ProductsController@getProductDetail'
+]);
 //-----------------------------END-USER-PAGE-----------------------------------//
 
 //-----------------------------ADMIN-PAGE--------------------------------------//
@@ -64,6 +67,7 @@ Route::get('/admin/users', [
 Route::get('/admin/users', [
     'uses' => 'App\Http\Controllers\UserController@getUser'
 ]);
+
 
 Route::post('/admin/users/update/{id}', [
     'uses' => 'App\Http\Controllers\UserController@updateUser'
