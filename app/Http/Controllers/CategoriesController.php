@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Categories;
+use App\Models\categorys;
 use Illuminate\Http\Request;
-use Illuminate\Routing\UrlGenerator;
 
-class UserController extends BaseController {
-    public $model = 'App\Models\User';
-    public function getUser() {
-        $users = $this->index();
-        return view('adminPage.users', compact('users'));
+class CategoriesController extends BaseController {
+    public $model = Categories::class;
+    public function getCategory() {
+        $categories = $this->index();
+        return view('adminPage.categories', compact('categories'));
     }
 
-    public function updateUser(Request $request, $id) {
+    public function updateCategory(Request $request, $id) {
         $user = $this->update($request, $id, false);
         $isSuccess = true;
         return view('adminPage.userEdit', compact('user', 'isSuccess'));
     }
 
-    public function showUser($id) {
+    public function showCategory($id) {
         $user = $this->show($id);
         return view('adminPage.userEdit', compact('user'));
     }
 
-    public function deleteUser($id)
+    public function deleteCategory($id)
     {
         $this->destroy($id);
         return response()->json(['msg' => 'Xóa thành công']);

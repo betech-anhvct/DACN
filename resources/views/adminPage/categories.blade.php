@@ -35,54 +35,45 @@
                                 </div>
                             </div>
                             <div class="bootstrap-data-table-panel">
-                                <div class="table-responsive" id="user-table">
+                                <div class="table-responsive" id="category-table">
                                     <table id="row-select" class="display table table-borderd table-hover">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">ID</th>
-                                                <th>Tên</th>
-                                                <th>Email</th>
-                                                <th>Địa chỉ</th>
-                                                <th>Số điện thoại</th>
-                                                <th>Vai trò</th>
+                                                <th>Danh mục</th>
+                                                <th>Danh mục cha</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            @foreach ($users as $user)
+                                            @foreach ($categories as $category)
                                             <tr>
-                                                <td class="text-center">{{ $user->id }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>{{ $user->address }}</td>
-                                                <td>{{ $user->phone }}</td>
-                                                <td>
-                                                    @if ($user->role == 0)
-                                                    Khách hàng
-                                                    @else
-                                                    Quản trị
-                                                    @endif</td>
-                                                <th class="col-2" style="text-align:right;">
-                                                    <a href="{{ url('/admin/users/update',$user->id) }}"><button
+                                                <td class="text-center">{{ $category->id }}</td>
+                                                <td>{{ $category->name }}</td>
+                                                <td>@foreach ($categories as $c)
+                                                    @if($c->id == $category->id_parent)
+                                                    {{ $c->name }}
+                                                    @endif
+                                                    @endforeach</td>
+                                                <th class="col-3" style="text-align:right;">
+                                                    <a href="{{ url('/admin/categorys/update',$category->id) }}"><button
                                                             class="btn btn-outline-primary m-1"
-                                                            name="btn-update[{{ $user->id }}]"
-                                                            id="{{ $user->id }}">Chỉnh
+                                                            name="btn-update[{{ $category->id }}]"
+                                                            id="{{ $category->id }}">Chỉnh
                                                             sửa</button></a>
                                                     <button class="btn btn-outline-danger m-1"
-                                                        name="btn-delete[{{ $user->id }}]"
-                                                        id="{{ $user->id }}">Xóa</button>
+                                                        name="btn-delete[{{ $category->id }}]"
+                                                        id="{{ $category->id }}">Xóa</button>
                                                 </th>
                                             </tr>
                                             @endforeach
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Tên</th>
-                                                <th>Email</th>
-                                                <th>Địa chỉ</th>
-                                                <th>Số điện thoại</th>
-                                                <th>Vai trò</th>
+                                                <th>ID</th>
+                                                <th>Danh mục</th>
+                                                <th>Danh mục cha</th>
                                                 <th></th>
                                             </tr>
                                         </tfoot>
@@ -106,14 +97,14 @@
         isDelete = window.confirm('Bạn có muốn xóa '+ id);
         if(isDelete){
             $.ajax({
-                url: '{{ url('/admin/users/delete') }}/' + id,
+                url: '{{ url('/admin/categories/delete') }}/' + id,
                 type: 'POST',
                 data: {
                     _token:"{{ csrf_token() }}",
                     id: id,
                 }
             }).done(function(data) {
-                window.location='{{ url('/admin/users') }}';
+                window.location='{{ url('/admin/category') }}';
             });
         }    
         });
