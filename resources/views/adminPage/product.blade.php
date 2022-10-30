@@ -35,54 +35,41 @@
                                 </div>
                             </div>
                             <div class="bootstrap-data-table-panel">
-                                <div class="table-responsive" id="user-table">
+                                <div class="table-responsive" id="product-table">
                                     <table id="row-select" class="display table table-borderd table-hover">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">ID</th>
                                                 <th>Tên</th>
-                                                <th>Email</th>
-                                                <th>Địa chỉ</th>
-                                                <th>Số điện thoại</th>
-                                                <th>Vai trò</th>
+                                                <th>Danh mục</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            @foreach ($users as $user)
+                                            @foreach ($products as $product)
                                             <tr>
-                                                <td class="text-center">{{ $user->id }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>{{ $user->address }}</td>
-                                                <td>{{ $user->phone }}</td>
-                                                <td>
-                                                    @if ($user->role == 0)
-                                                    Khách hàng
-                                                    @else
-                                                    Quản trị
-                                                    @endif</td>
-                                                <th class="col-2" style="text-align:right;">
-                                                    <a href="{{ url('/admin/users/update',$user->id) }}"><button
+                                                <td class="text-center">{{ $product->id }}</td>
+                                                <td>{{ $product->name }}</td>
+                                                <td>{{ $product->rCategories->name }}</td>
+                                                <th class="col-3" style="text-align:right;">
+                                                    <a href="{{ url('/admin/products/update',$product->id) }}"><button
                                                             class="btn btn-outline-primary m-1"
-                                                            name="btn-update[{{ $user->id }}]"
-                                                            id="{{ $user->id }}">Chỉnh
+                                                            name="btn-update[{{ $product->id }}]"
+                                                            id="{{ $product->id }}">Chỉnh
                                                             sửa</button></a>
                                                     <button class="btn btn-outline-danger m-1"
-                                                        name="btn-delete[{{ $user->id }}]"
-                                                        id="{{ $user->id }}">Xóa</button>
+                                                        name="btn-delete[{{ $product->id }}]"
+                                                        id="{{ $product->id }}">Xóa</button>
                                                 </th>
                                             </tr>
                                             @endforeach
                                         </tbody>
                                         <tfoot>
                                             <tr>
+                                                <th>ID</th>
                                                 <th>Tên</th>
-                                                <th>Email</th>
-                                                <th>Địa chỉ</th>
-                                                <th>Số điện thoại</th>
-                                                <th>Vai trò</th>
+                                                <th>Danh mục</th>
                                                 <th></th>
                                             </tr>
                                         </tfoot>
@@ -106,14 +93,14 @@
         isDelete = window.confirm('Bạn có muốn xóa '+ id);
         if(isDelete){
             $.ajax({
-                url: '{{ url('/admin/users/delete') }}/' + id,
+                url: '{{ url('/admin/products/delete') }}/' + id,
                 type: 'POST',
                 data: {
                     _token:"{{ csrf_token() }}",
                     id: id,
                 }
             }).done(function(data) {
-                window.location='{{ url('/admin/users') }}';
+                window.location='{{ url('/admin/product') }}';
             });
         }    
         });

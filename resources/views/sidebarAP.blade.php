@@ -10,7 +10,8 @@
                 </li>
                 <li class="label">Quản lí</li>
                 <li><a href="{{ url('/admin/users') }}"><i class="ti-user"></i> Người dùng </a></li>
-                <li><a href="app-event-calender.html"><i class="ti-bar-chart-alt"></i> Sản phẩm </a></li>
+                <li><a href="{{ url('/admin/category') }}"><i class="ti-bar-chart-alt"></i> Danh mục </a></li>
+                <li><a href="{{ url('/admin/product') }}"><i class="ti-bar-chart-alt"></i> Sản phẩm </a></li>
             </ul>
         </div>
     </div>
