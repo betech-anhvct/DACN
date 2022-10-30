@@ -20,8 +20,8 @@
     <!-- Standard iPhone Touch Icon-->
     <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"/>
- 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css" />
+
     <link href="{{ asset('css/lib/chartist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/lib/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/lib/themify-icons.css') }}" rel="stylesheet">
@@ -37,7 +37,7 @@
 </head>
 
 <body>
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
     @include('sidebarAP')
 
     @yield('contentAP')

@@ -69,7 +69,23 @@ Route::get('/admin/users', [
 ]);
 
 
+Route::get('/admin/users/update/{id}', [
+    'uses' => 'App\Http\Controllers\UserController@showUser'
+]);
+
 Route::post('/admin/users/update/{id}', [
     'uses' => 'App\Http\Controllers\UserController@updateUser'
+]);
+
+Route::post('/admin/{model}/delete/{id}', [
+    'uses' => 'App\Http\Controllers\BaseController@delete'
+]);
+
+Route::get('/admin/category', [
+    'uses' => 'App\Http\Controllers\CategoriesController@getCategory'
+]);
+
+Route::get('/admin/product', [
+    'uses' => 'App\Http\Controllers\ProductsController@getProductAdmin'
 ]);
 //-----------------------------END-ADMIN-PAGE----------------------------------//
