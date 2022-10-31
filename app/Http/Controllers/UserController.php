@@ -24,8 +24,18 @@ class UserController extends BaseController {
         return view('adminPage.userEdit', compact('user'));
     }
 
-    public function deleteUser($id)
-    {
+    public function createUser() {
+        $user = $this->show(0);
+        return view('adminPage.userEdit', compact('user'));
+    }
+
+    public function storeUser(Request $request) {
+        $this->store($request);
+        $users = $this->index();
+        return redirect('/admin/users');
+    }
+
+    public function deleteUser($id) {
         $this->destroy($id);
         return response()->json(['msg' => 'Xóa thành công']);
     }

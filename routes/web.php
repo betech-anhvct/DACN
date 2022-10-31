@@ -68,6 +68,13 @@ Route::get('/admin/users', [
     'uses' => 'App\Http\Controllers\UserController@getUser'
 ]);
 
+Route::get('/admin/users/create', [
+    'uses' => 'App\Http\Controllers\UserController@createUser'
+]);
+
+Route::post('/admin/users/create', [
+    'uses' => 'App\Http\Controllers\UserController@storeUser'
+]);
 
 Route::get('/admin/users/update/{id}', [
     'uses' => 'App\Http\Controllers\UserController@showUser'
