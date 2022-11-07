@@ -95,4 +95,21 @@ Route::get('/admin/category', [
 Route::get('/admin/product', [
     'uses' => 'App\Http\Controllers\ProductsController@getProductAdmin'
 ]);
+
+Route::get('/admin/product/create', [
+    'uses' => 'App\Http\Controllers\ProductsController@createProduct'
+]);
+
+Route::post('/admin/product/create', [
+    'uses' => 'App\Http\Controllers\ProductsController@storeProduct'
+]);
+
+Route::get('/admin/product/update/{id}', [
+    'uses' => 'App\Http\Controllers\ProductsController@showProduct'
+]);
+
+Route::post('/admin/product/update/{id}', [
+    'uses' => 'App\Http\Controllers\ProductsController@updateProduct'
+]);
+
 //-----------------------------END-ADMIN-PAGE----------------------------------//
