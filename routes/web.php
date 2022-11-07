@@ -68,6 +68,13 @@ Route::get('/admin/users', [
     'uses' => 'App\Http\Controllers\UserController@getUser'
 ]);
 
+Route::get('/admin/users/create', [
+    'uses' => 'App\Http\Controllers\UserController@createUser'
+]);
+
+Route::post('/admin/users/create', [
+    'uses' => 'App\Http\Controllers\UserController@storeUser'
+]);
 
 Route::get('/admin/users/update/{id}', [
     'uses' => 'App\Http\Controllers\UserController@showUser'
@@ -88,4 +95,21 @@ Route::get('/admin/category', [
 Route::get('/admin/product', [
     'uses' => 'App\Http\Controllers\ProductsController@getProductAdmin'
 ]);
+
+Route::get('/admin/product/create', [
+    'uses' => 'App\Http\Controllers\ProductsController@createProduct'
+]);
+
+Route::post('/admin/product/create', [
+    'uses' => 'App\Http\Controllers\ProductsController@storeProduct'
+]);
+
+Route::get('/admin/product/update/{id}', [
+    'uses' => 'App\Http\Controllers\ProductsController@showProduct'
+]);
+
+Route::post('/admin/product/update/{id}', [
+    'uses' => 'App\Http\Controllers\ProductsController@updateProduct'
+]);
+
 //-----------------------------END-ADMIN-PAGE----------------------------------//

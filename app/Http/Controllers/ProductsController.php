@@ -28,9 +28,33 @@ class ProductsController extends BaseController {
         return view('userPage.shopProductsDetail', compact('product', 'topProducts'));
     }
 
+
+
     // Admin page
     public function getProductAdmin() {
         $products = Products::where('status', '<>', '0')->with('rCategories')->get();
         return view('adminPage.product', compact('products'));
+    }
+
+    public function updateProduct(Request $request, $id) {
+        $product = $this->update($request, $id, false);
+        $isSuccess = true;
+        return view('adminPage.productEdit', compact('product', 'isSuccess'));
+    }
+
+    public function showProduct($id) {
+        $product = $this->show($id);
+        return view('adminPage.productEdit', compact('product'));
+    }
+
+    public function createProduct() {
+        $product = $this->show(0);
+        return view('adminPage.productEdit', compact('product'));
+    }
+
+    public function storeProduct(Request $request) {
+        $this->store($request);
+        $products = $this->index();
+        return redirect('/admin/product');
     }
 }

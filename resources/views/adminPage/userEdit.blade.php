@@ -7,7 +7,9 @@
                 <div class="col-lg-8 p-r-0 title-margin-right">
                     <div class="page-header">
                         <div class="page-title">
-                            <a href="{{ url('/admin/users') }}"><h1><button class="btn btn-primary">Danh sách người dùng</button></h1></a>
+                            <a href="{{ url('/admin/users') }}">
+                                <h1><button class="btn btn-primary">Danh sách người dùng</button></h1>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -47,20 +49,35 @@
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
-                                <form action="{{ url('/admin/users/update',$user->id) }}" method="POST">
+                                <form action="@if($user->id)
+                                {{ url('/admin/users/update',$user->id) }}
+                                @else
+                                {{ url('/admin/users/create') }}
+                                @endif" method="POST">
                                     @csrf
                                     <div class="form-group">
-                                        <label>Email</label>
-                                        <input type="email" class="form-control" value="{{ $user->email }}" disabled>
+                                        <label>Tên</label>
+                                       <input type="text" class="form-control" name="name" value="{{ old('name') ?? $user->name }}">
                                     </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                       <input type="email" class="form-control" name="email" value="{{ $user->email }}" @if ($user->email)
+                                        disabled @endif>
+                                    </div>
+                                    @if(!$user->id)
+                                    <div class="form-group">
+                                        <label>Mật khẩu</label>
+                                       <input type="password" name="password" class="form-control" value="">
+                                    </div>
+                                    @endif
                                     <div class="form-group">
                                         <label>Địa chỉ</label>
                                         <input type="text" class="form-control" name="address"
-                                            value="{{ $user->address }}">
+                                            value="{{ old('address') ?? $user->address }}">
                                     </div>
                                     <div class="form-group">
                                         <label>Số điện thoại</label>
-                                        <input type="text" class="form-control" name="phone" value="{{ $user->phone }}">
+                                        <input type="text" class="form-control" name="phone" value="{{ old('phone') ?? $user->phone }}">
                                     </div>
                                     <div class="form-group">
                                         <label>

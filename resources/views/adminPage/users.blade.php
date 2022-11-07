@@ -31,8 +31,7 @@
                         <div class="card">
                             <div class="card-title">
                                 <h1>Danh sách người dùng</h1>
-                                <div id="deleteMsg">
-                                </div>
+                                <a href="{{ url('/admin/users/create') }}"><button class="btn btn-success m-1"><i class="fa fa-plus"></i>&ensp;Thêm</button></a>
                             </div>
                             <div class="bootstrap-data-table-panel">
                                 <div class="table-responsive" id="user-table">
@@ -63,7 +62,7 @@
                                                     @else
                                                     Quản trị
                                                     @endif</td>
-                                                <th class="col-2" style="text-align:right;">
+                                                <th class="col-3" style="text-align:right;">
                                                     <a href="{{ url('/admin/users/update',$user->id) }}"><button
                                                             class="btn btn-outline-primary m-1"
                                                             name="btn-update[{{ $user->id }}]"
@@ -106,7 +105,7 @@
         isDelete = window.confirm('Bạn có muốn xóa '+ id);
         if(isDelete){
             $.ajax({
-                url: '{{ url('/admin/users/delete') }}/' + id,
+                url: '{{ url('/admin/user/delete') }}/' + id,
                 type: 'POST',
                 data: {
                     _token:"{{ csrf_token() }}",

@@ -53,7 +53,7 @@
                                                 <td>{{ $product->name }}</td>
                                                 <td>{{ $product->rCategories->name }}</td>
                                                 <th class="col-3" style="text-align:right;">
-                                                    <a href="{{ url('/admin/products/update',$product->id) }}"><button
+                                                    <a href="{{ url('/admin/product/update',$product->id) }}"><button
                                                             class="btn btn-outline-primary m-1"
                                                             name="btn-update[{{ $product->id }}]"
                                                             id="{{ $product->id }}">Chỉnh

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BaseController extends Controller {
     public $model = 'App\Models\BaseModel';
@@ -11,12 +12,19 @@ class BaseController extends Controller {
         return $listModel;
     }
 
-    public function store(Request $request) {
-        //
+    public function store(Request $request, $validate = true) {
+        if ($validate) {
+            $request->validate($this->model::getRule());
+        }
+        $this->model::create($request->all());
+        return true;
     }
 
     public function show($id) {
         $model = $this->model::find($id);
+        if (!$model) {
+            $model = new $this->model();
+        }
         return $model;
     }
 
