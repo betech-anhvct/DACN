@@ -114,7 +114,7 @@
                         @endif
                         @endauth
                         <li><a href="{{ url('shopProduct') }}">Sản phẩm</a></li>
-                        <li><a href="./contact.html">Contact</a></li>
+                        <li><a href="{{ url('contact') }}">Liên Hệ</a></li>
                     </ul>
                 </nav>
             </div>

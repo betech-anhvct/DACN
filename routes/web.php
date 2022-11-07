@@ -45,6 +45,9 @@ Route::get('/shopProduct', [
 route::get('/shopProductDetail/{sid}',[
     'uses' => 'App\Http\Controllers\ProductsController@getProductDetail'
 ]);
+route::get('/contact', function (){
+    return view('userPage.contact');
+});
 //-----------------------------END-USER-PAGE-----------------------------------//
 
 //-----------------------------ADMIN-PAGE--------------------------------------//
