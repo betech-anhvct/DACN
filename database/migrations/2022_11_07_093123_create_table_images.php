@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateTableImages extends Migration
@@ -13,7 +14,7 @@ class CreateTableImages extends Migration
      */
     public function up()
     {
-        Schema::create('table_images', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->string('id_product')->default(0);
             $table->string('name');
