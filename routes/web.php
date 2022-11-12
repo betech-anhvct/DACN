@@ -48,6 +48,22 @@ route::get('/shopProductDetail/{sid}',[
 route::get('/contact', function (){
     return view('userPage.contact');
 });
+//-----------------------------cart---------------------------//
+Route::get('/cart', 'App\Http\Controllers\CartController@getCart');
+
+Route::post(
+    'add2cart',
+    [
+        'as' => 'them-gio-hang',
+        'uses' => 'App\Http\Controllers\CartController@add2Cart',
+    ]
+);
+Route::post('/cart', function(){
+    return view('userPage.cart');
+});
+
+
+
 //-----------------------------END-USER-PAGE-----------------------------------//
 
 //-----------------------------ADMIN-PAGE--------------------------------------//

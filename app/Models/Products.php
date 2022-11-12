@@ -25,4 +25,16 @@ class Products extends Model {
     public function rImages() {
         return $this->hasMany(Categories::class, 'id', 'id_image');
     }
+    public function productRule(){
+        return[
+            'id'=> ['required'],
+            'id_catogary'=>['required'],
+            'id_image'=>['required'],
+            'name'=>['required'],
+            'description'=>['required'],
+            'price'=>['required'],
+            'stock'=>['required'],
+            'status'=>['required'],
+        ];
+    }
 }

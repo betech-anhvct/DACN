@@ -207,8 +207,40 @@
                                             data-setbg="img/product/discount/pd-1.jpg">
                                             <div class="product__discount__percent">-20%</div>
                                             <ul class="product__item__pic__hover">
-                                                <li><a href="shopProductDetail/{{ $product['id']}}"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                <li><a href="shopProductDetail/{{ $product->id}}"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                                                <li ><a href="javascript:;" id="add2cart"
+                                                    @if (Auth::check()) data-toggle="model" data-target="#add2cart"
+                                                    @endif
+                                                    ><i class="fa fa-shopping-cart"></i></a></li>
+                                                    <button id="add2cart" class="btn btn-outline-info"
+                                        @if (Auth::check()) data-toggle="modal"  data-target="#add2Carrt" @endif>Add
+                                        To Cart</button>
+                                                <div class="modal fade" id="add2Carrt" tabindex="-1" role="dialog"
+                                                    aria-labelledby="add2Carrt" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div id="msg" class="col-m-5 mx-auto">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="add2Carrt" tabindex="-1" role="dialog"
+                                        aria-labelledby="add2Carrt" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div id="msg" class="col-m-5 mx-auto">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">
@@ -252,8 +284,13 @@
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
                                     <ul class="product__item__pic__hover">
-                                        <li><a href="shopProductDetail/{{ $product['id']}}"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="shopProductDetail/{{ $product->id}}"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                                        <form action="{{ url('add2cart') }}" method="POST" @if (Auth::check()) data-toggle="modal"  data-target="#add2Carrt" @endif>
+                                            <li><a href="#" class="add2cart"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </form>
+                                        <button id="add2cart" class="btn btn-outline-info"
+                                        @if (Auth::check()) data-toggle="modal"  data-target="#add2Carrt" @endif>Add
+                                        To Cart</button>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
@@ -276,10 +313,36 @@
         </div>
     </section>
     <!-- Product Section End -->
+    <script>
+        $('#add2cart').click(function() {
+            @if (!Auth::check())
+                window.location = "login";
+            @else
+                id = '{{ $product->id_product }}';
+                name = $('[name="name"]:checked').val();
+                quantity = $('#product_quantity').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('them-gio-hang') }}',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        id,
+                        name,
+                        quantity
+                    },
+                    success: function(data) {
+                        alert(1);
+                        $("span#cartItem").html(data.data);
+                        $('#msg').html(data.msg)
+                    }
+                })
+            @endif
+        });
+    </script>
+
 
 
         <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
