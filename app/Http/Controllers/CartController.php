@@ -8,6 +8,7 @@ use App\Models\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -113,6 +114,35 @@ class CartController extends Controller
             $cart[$key] = $qty;
         }
         return $cart;
+    }
+    public function getCheckoutListUserPage(Request $req)
+    {
+        // $data = DB::table('order_details')
+        //     ->join('product_details', 'order_details.id_product_detail', '=', 'product_details.id_product_detail',)
+        //     ->join('products', 'product_details.id_product', '=', 'products.id_product')
+        //     ->where('id_order', '=', $id_order)
+        //     ->select('order_details.*', 'products.product_name','product_details.size', 'product_details.color', 'product_details.material')
+        //     ->get();
+        if (Auth::check()) {
+            $list_checkout_cart = Cart::where('id_user', Auth::user()->id_user)->get();
+            // $id_user = Auth::user()->id_user;
+            //->join('cart', 'users.id_user', '=', 'cart.id_user')
+
+            $data = DB::table('cart')
+                ->join('product_detail', 'cart.id_product_detail', '=', 'product_detail.id_product_detail')
+                ->join('product', 'product_detail.id_product', '=', 'product.id_product')
+                ->where('id_user', '=', Auth::user()->id_user)
+                ->select('product.product_name', 'cart.quantity', 'product_detail.remaining', 'product_detail.price', 'product_detail.size', 'product_detail.color')
+                ->get();
+            foreach ($data as $dt) {
+                if ($dt->quantity > $dt->remaining) {
+                    return redirect()->back()->with(['err'=>'Product "'.$dt->id.'" id "'.$dt->name.'" size "'.$dt->price.'" remaining not enough']);
+                }
+            }
+            return view('userpage.user_checkout', compact('data'));
+        } else {
+            return redirect('login');
+        }
     }
 
 }

@@ -62,6 +62,10 @@ Route::post('/cart', function(){
     return view('userPage.cart');
 });
 
+//-----------------------------checkout---------------------------//
+Route::get('/checkout', function(){
+    return view('userPage.checkout');
+});
 
 
 //-----------------------------END-USER-PAGE-----------------------------------//
