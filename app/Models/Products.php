@@ -22,7 +22,7 @@ class Products extends Model {
     }
 
     public function rImages() {
-        return $this->hasMany(Categories::class, 'id', 'id_image');
+        return $this->hasMany(Images::class, 'id_product', 'id');
     }
     public static function getRule() {
         return [
@@ -40,7 +40,7 @@ class Products extends Model {
             'unique' => ':attribute đã được sử dụng',
             'string' => 'Phải là định dạng chuỗi',
             'max' => ':attribute có tối đa :max ký tự',
-
+        ];}
     public function productRule(){
         return[
             'id'=> ['required'],
