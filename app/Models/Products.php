@@ -40,6 +40,17 @@ class Products extends Model {
             'unique' => ':attribute đã được sử dụng',
             'string' => 'Phải là định dạng chuỗi',
             'max' => ':attribute có tối đa :max ký tự',
+
+    public function productRule(){
+        return[
+            'id'=> ['required'],
+            'id_catogary'=>['required'],
+            'id_image'=>['required'],
+            'name'=>['required'],
+            'description'=>['required'],
+            'price'=>['required'],
+            'stock'=>['required'],
+            'status'=>['required'],
         ];
     }
 }
