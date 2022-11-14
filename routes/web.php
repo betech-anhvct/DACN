@@ -82,7 +82,7 @@ Route::get('/admin', function () {
 
 Route::get('/admin/users', [
     'as' => 'usersAP',
-    'uses' => function(){
+    'uses' => function () {
         return view('adminPage.users');
     }
 ]);
@@ -134,5 +134,12 @@ Route::get('/admin/product/update/{id}', [
 Route::post('/admin/product/update/{id}', [
     'uses' => 'App\Http\Controllers\ProductsController@updateProduct'
 ]);
+
+Route::post(
+    '/admin/product/img ',
+    function () {
+        return response('1');
+    }
+);
 
 //-----------------------------END-ADMIN-PAGE----------------------------------//

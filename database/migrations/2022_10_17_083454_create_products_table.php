@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateProductsTable extends Migration
@@ -16,9 +17,8 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('id_category');
-            $table->string('id_image')->default('0');
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('price');
             $table->string('stock')->default('100');
             $table->string('status')->default(1);

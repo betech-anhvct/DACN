@@ -30,7 +30,8 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-title">
-                                <h1>Danh sách người dùng</h1>
+                                <h1>Danh sách sản phẩm</h1>
+                                <a href="{{ url('/admin/product/create') }}"><button class="btn btn-success m-1"><i class="fa fa-plus"></i>&ensp;Thêm</button></a>
                                 <div id="deleteMsg">
                                 </div>
                             </div>
@@ -42,6 +43,7 @@
                                                 <th class="text-center">ID</th>
                                                 <th>Tên</th>
                                                 <th>Danh mục</th>
+                                                <th>Trạng thái</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -52,6 +54,7 @@
                                                 <td class="text-center">{{ $product->id }}</td>
                                                 <td>{{ $product->name }}</td>
                                                 <td>{{ $product->rCategories->name }}</td>
+                                                <td>@if($product->status==1)Hiển thị@else Ẩn @endif</td>
                                                 <th class="col-3" style="text-align:right;">
                                                     <a href="{{ url('/admin/product/update',$product->id) }}"><button
                                                             class="btn btn-outline-primary m-1"
