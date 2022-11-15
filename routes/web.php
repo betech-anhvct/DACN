@@ -135,11 +135,16 @@ Route::post('/admin/product/update/{id}', [
     'uses' => 'App\Http\Controllers\ProductsController@updateProduct'
 ]);
 
-Route::post(
-    '/admin/product/img ',
-    function () {
-        return response('1');
-    }
-);
+Route::get('/admin/category/create',[
+    'uses' => 'App\Http\Controllers\CategoriesController@createCategory'
+]);
+
+Route::get('/admin/category/update/{id}', [
+    'uses' => 'App\Http\Controllers\CategoriesController@showCategory'
+]);
+
+Route::post('/admin/category/update/{id}', [
+    'uses' => 'App\Http\Controllers\CategoriesController@updateCategory'
+]);
 
 //-----------------------------END-ADMIN-PAGE----------------------------------//
