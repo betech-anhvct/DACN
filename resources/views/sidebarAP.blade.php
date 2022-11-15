@@ -171,17 +171,13 @@
                     </div>
                     <div class="dropdown dib">
                         <div class="header-icon" data-toggle="dropdown">
-                            <span class="user-avatar">John
+                            <span class="user-avatar">{{ Auth::user()->name }}
                                 <i class="ti-angle-down f-s-10"></i>
                             </span>
                             <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
-                                <div class="dropdown-content-heading">
-                                    <span class="text-left">Upgrade Now</span>
-                                    <p class="trial-day">30 Days Trail</p>
-                                </div>
-                                <div class="dropdown-content-body">
+                                <div class="dropdown-content">
                                     <ul>
-                                        <li>
+                                        {{-- <li>
                                             <a href="#">
                                                 <i class="ti-user"></i>
                                                 <span>Profile</span>
@@ -206,11 +202,11 @@
                                                 <i class="ti-lock"></i>
                                                 <span>Lock Screen</span>
                                             </a>
-                                        </li>
+                                        </li> --}}
                                         <li>
-                                            <a href="#">
+                                            <a href="{{ url('logout') }}">
                                                 <i class="ti-power-off"></i>
-                                                <span>Logout</span>
+                                                <span>Đăng xuất</span>
                                             </a>
                                         </li>
                                     </ul>
