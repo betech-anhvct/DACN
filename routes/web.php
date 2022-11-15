@@ -48,6 +48,26 @@ route::get('/shopProductDetail/{sid}',[
 route::get('/contact', function (){
     return view('userPage.contact');
 });
+//-----------------------------cart---------------------------//
+Route::get('/cart', 'App\Http\Controllers\CartController@getCart');
+
+Route::post(
+    'add2cart',
+    [
+        'as' => 'them-gio-hang',
+        'uses' => 'App\Http\Controllers\CartController@add2Cart',
+    ]
+);
+Route::post('/cart', function(){
+    return view('userPage.cart');
+});
+
+//-----------------------------checkout---------------------------//
+Route::get('/checkout', function(){
+    return view('userPage.checkout');
+});
+
+
 //-----------------------------END-USER-PAGE-----------------------------------//
 
 //-----------------------------ADMIN-PAGE--------------------------------------//
@@ -115,11 +135,16 @@ Route::post('/admin/product/update/{id}', [
     'uses' => 'App\Http\Controllers\ProductsController@updateProduct'
 ]);
 
-Route::post(
-    '/admin/product/img ',
-    function () {
-        return response('1');
-    }
-);
+Route::get('/admin/category/create',[
+    'uses' => 'App\Http\Controllers\CategoriesController@createCategory'
+]);
+
+Route::get('/admin/category/update/{id}', [
+    'uses' => 'App\Http\Controllers\CategoriesController@showCategory'
+]);
+
+Route::post('/admin/category/update/{id}', [
+    'uses' => 'App\Http\Controllers\CategoriesController@updateCategory'
+]);
 
 //-----------------------------END-ADMIN-PAGE----------------------------------//

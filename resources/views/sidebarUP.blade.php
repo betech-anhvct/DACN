@@ -58,6 +58,9 @@
 <!-- Humberger End -->
 
 <!-- Header Section Begin -->
+@if (session('message'))
+    <div>{{ session('message') }}</div>
+@endif
 <header class="header">
     <div class="header__top">
         <div class="container">
@@ -121,8 +124,13 @@
             <div class="col-lg-3">
                 <div class="header__cart">
                     <ul>
-                        <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                        <li><a href="{{ url('/cart') }}"><i class="fa fa-shopping-bag"></i> <span id="cartItem">
+                            @if(session()->exists('cart'))
+                            {{count(session('cart'))}}
+                            @else
+                            0
+                            @endif
+                        </span></a></li>
                     </ul>
                     <div class="header__cart__price">item: <span>$150.00</span></div>
                 </div>

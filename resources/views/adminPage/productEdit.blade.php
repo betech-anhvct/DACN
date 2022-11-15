@@ -8,7 +8,7 @@
           <div class="page-header">
             <div class="page-title">
               <a href="{{ url('/admin/product') }}">
-                <h1><button class="btn btn-primary">Danh sách sản phẩm</button></h1>
+                <h1> <button class="btn btn-primary">Danh sách sản phẩm</button> </h1>
               </a>
             </div>
           </div>
@@ -29,7 +29,7 @@
         <div class="col">
           <div class="card">
             <div class="card-title">
-              <h4>Chỉnh sửa <b>{{ $product->name }}</b></h4>
+              <h4>Chỉnh sửa <b>{{ $product->name }}</b> </h4>
               @if ($errors->any())
               <div class="alert alert-danger">
                 <ul>
@@ -61,13 +61,13 @@
                       <h6>Trạng thái</h6>
                     </label>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="status" id="status1" value="1" 
+                      <input class="form-check-input" type="radio" name="status" id="status1" value="1"
                       @if ($product->status == 1)checked @endif >
                       <label class="form-check-label" for="status1">Hiển thị</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="status" id="status0" value="0" @if($product->status == 0)checked @endif>
-                      <label class="form-check-label" for="status0">Ẩn</label>
+                      <input class="form-check-input" type="radio" name="status" id="status2" value="2" @if($product->status == 2)checked @endif>
+                      <label class="form-check-label" for="status2">Ẩn</label>
                     </div>
                   </div>
                   <div class="form-group">
@@ -101,10 +101,46 @@
                   <div class="form-group">
                     <label>Hình ảnh</label>
                     <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label"></label>
+                      <label class="col-sm-2 col-form-label"> </label>
                       <div class="col-sm-10">
-                        <button onclick="spartanMultiImagePicker();">asdas</button>
-                        <div id="multi_image_picker" class="row"></div>
+                        <div id="multi_image_picker" class="row">
+                          <?php $count = 0; ?>
+                          @foreach ($product->rImages as $img)
+                          <div class="col-md-4 col-sm-4 col-xs-6 spartan_item_wrapper" data-spartanindexrow="{{ $count }}"
+                            style="margin-bottom : 20px; ">
+                            <div style="position: relative;">
+                              <div class="spartan_item_loader" data-spartanindexloader="{{ $count }}"
+                                style=" position: absolute; width: 100%; height: 200px; background: rgba(255,255,255, 0.7); z-index: 22; text-align: center; align-items: center; margin: auto; justify-content: center; flex-direction: column; display : none; font-size : 1.7em; color: #CECECE">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                  <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                                  </path>
+                                </svg>
+                              </div>
+                              <label class="file_upload"
+                                style="width: 100%; height: 200px; border: 2px dashed #ddd; border-radius: 3px; cursor: pointer; text-align: center; overflow: hidden; padding: 5px; margin-top: 5px; margin-bottom : 5px; position : relative; display: flex; align-items: center; margin: auto; justify-content: center; flex-direction: column;">
+                                <a href="javascript:void(0)" data-spartanindexremove="{{ $count }}"
+                                  style="right: 3px; top: 3px; background: rgb(237, 60, 32); border-radius: 3px; width: 30px; height: 30px; line-height: 30px; text-align: center; text-decoration: none; color: rgb(255, 255, 255); position: absolute !important;"
+                                  class="spartan_remove_row">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"> </path>
+                                  </svg>
+                                </a> <img style="width: 64px; margin: 0px auto; vertical-align: middle; display: none;" data-spartanindexi="0"
+                                  src="{{ asset('/images/'.$img->name) }}" class="spartan_image_placeholder">
+                                <p data-spartanlbldropfile="{{ $count }}" style="color : #5FAAE1; display: none; width : auto; ">Drop file here
+                                </p>
+                                <img style="width: 100%; vertical-align: middle;" class="img_" data-spartanindeximage="{{ $count }}"
+                                  src="{{ asset('/images/'.$img->name) }}">
+                                <input type="text" name="oldFileUpload[{{ $img->id }}]" value="{{ $img->id }}" hidden>
+                                <input class="form-control spartan_image_input" accept="image/*" data-spartanindexinput="{{ $count }}"
+                                  style="display : none" name="fileUpload[{{ $img->id }}]" type="file">
+                              </label>
+                            </div>
+                          </div>
+                          <?php $count++; ?>
+                          @endforeach
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -121,6 +157,7 @@
 <script type="text/javascript">
   $(function(){
     $("#multi_image_picker").spartanMultiImagePicker({
+      count2        : '{{ $count }}',
       fieldName     : 'fileUpload[]', // this configuration will send your images named "fileUpload" to the server
     });
   });

@@ -43,6 +43,7 @@
                                                 <th class="text-center">ID</th>
                                                 <th>Tên</th>
                                                 <th>Danh mục</th>
+                                                <th>Tồn kho</th>
                                                 <th>Trạng thái</th>
                                                 <th></th>
                                             </tr>
@@ -54,6 +55,7 @@
                                                 <td class="text-center">{{ $product->id }}</td>
                                                 <td>{{ $product->name }}</td>
                                                 <td>{{ $product->rCategories->name }}</td>
+                                                <td>{{ $product->stock }}</td>
                                                 <td>@if($product->status==1)Hiển thị@else Ẩn @endif</td>
                                                 <th class="col-3" style="text-align:right;">
                                                     <a href="{{ url('/admin/product/update',$product->id) }}"><button
@@ -105,7 +107,7 @@
             }).done(function(data) {
                 window.location='{{ url('/admin/product') }}';
             });
-        }    
+        }
         });
     });
 </script>

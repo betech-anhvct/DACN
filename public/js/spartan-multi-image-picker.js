@@ -11,11 +11,12 @@
 
     $.fn.spartanMultiImagePicker = function(options) {
 
-        var count       = 0; 
+        // var settings.count2       = defaults.count2;
         var last_index  = 0;
         var total_count = 0;
 
         var defaults = {
+            count2:           '',
             fieldName:        '',
             groupClassName:   'col-md-4 col-sm-4 col-xs-6',
             rowHeight:        '200px',
@@ -52,7 +53,7 @@
          * @param {[type]} el       [description]
          */
         function addRow(settings, el){
-            last_index = count;
+            last_index = settings.count2;
             var groupClassName = settings.groupClassName, rowHeight = settings.rowHeight, fieldName = settings.fieldName, placeholderImage = settings.placeholderImage, dropFileLabel = settings.dropFileLabel;
             var placeholderImageTarget = placeholderImage.image;
             var placeholderImageWidth  = '64px';
@@ -65,21 +66,21 @@
             if(typeof placeholderImage.width != 'undefined'){
                 placeholderImageWidth = placeholderImage.width;
             }
-            var template = `<div class="${groupClassName} spartan_item_wrapper" data-spartanindexrow="${count}" style="margin-bottom : 20px; ">`+
+            var template = `<div class="${groupClassName} spartan_item_wrapper" data-spartanindexrow="${settings.count2}" style="margin-bottom : 20px; ">`+
                                 `<div style="position: relative;">`+
-                                    `<div class="spartan_item_loader" data-spartanindexloader="${count}" style=" position: absolute; width: 100%; height: ${rowHeight}; background: rgba(255,255,255, 0.7); z-index: 22; text-align: center; align-items: center; margin: auto; justify-content: center; flex-direction: column; display : none; font-size : 1.7em; color: #CECECE">` +
+                                    `<div class="spartan_item_loader" data-spartanindexloader="${settings.count2}" style=" position: absolute; width: 100%; height: ${rowHeight}; background: rgba(255,255,255, 0.7); z-index: 22; text-align: center; align-items: center; margin: auto; justify-content: center; flex-direction: column; display : none; font-size : 1.7em; color: #CECECE">` +
                                         `${uploadLoaderIcon}` +
                                     `</div>`+
                                     `<label class="file_upload" style="width: 100%; height: ${rowHeight}; border: 2px dashed #ddd; border-radius: 3px; cursor: pointer; text-align: center; overflow: hidden; padding: 5px; margin-top: 5px; margin-bottom : 5px; position : relative; display: flex; align-items: center; margin: auto; justify-content: center; flex-direction: column;">`+
-                                        `<a href="javascript:void(0)" data-spartanindexremove="${count}" style="position: absolute !important; right : 3px; top: 3px; display : none; background : #ED3C20; border-radius: 3px; width: 30px; height: 30px; line-height : 30px; text-align: center; text-decoration : none; color : #FFF;" class="spartan_remove_row">
+                                        `<a href="javascript:void(0)" data-spartanindexremove="${settings.count2}" style="position: absolute !important; right : 3px; top: 3px; display : none; background : #ED3C20; border-radius: 3px; width: 30px; height: 30px; line-height : 30px; text-align: center; text-decoration : none; color : #FFF;" class="spartan_remove_row">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                             </svg>
                                         </a>`+
-                                        `<img style="width: ${placeholderImageWidth}; margin: 0 auto; vertical-align: middle;" data-spartanindexi="${count}" src="${placeholderImageTarget}" class="spartan_image_placeholder" /> `+
-                                        `<p data-spartanlbldropfile="${count}" style="color : #5FAAE1; display: none; width : auto; ">${dropFileLabel}</p>`+
-                                        `<img style="width: 100%; vertical-align: middle; display:none;" class="img_" data-spartanindeximage="${count}">`+
-                                        `<input class="form-control spartan_image_input" accept="image/*" data-spartanindexinput="${count}" style="display : none"  name="${fieldName}" type="file">`+
+                                        `<img style="width: ${placeholderImageWidth}; margin: 0 auto; vertical-align: middle;" data-spartanindexi="${settings.count2}" src="${placeholderImageTarget}" class="spartan_image_placeholder" /> `+
+                                        `<p data-spartanlbldropfile="${settings.count2}" style="color : #5FAAE1; display: none; width : auto; ">${dropFileLabel}</p>`+
+                                        `<img style="width: 100%; vertical-align: middle; display:none;" class="img_" data-spartanindeximage="${settings.count2}">`+
+                                        `<input class="form-control spartan_image_input" accept="image/*" data-spartanindexinput="${settings.count2}" style="display : none"  name="${fieldName}" type="file">`+
                                    `</label> `+
                                 `</div>`+
                            `</div>`;
@@ -87,12 +88,12 @@
             var html = $.parseHTML(template);
 
             $(el).append(html);
-            count++;
+            settings.count2++;
             var param = {
-                index : count,
+                index : settings.count2,
                 last_index : last_index
             };
-            settings.onAddRow.call(this, count);
+            settings.onAddRow.call(this, settings.count2);
         }
 
 
@@ -139,7 +140,7 @@
                             total_count++;
                             is_add = true;
                         }
-                        if(index == (count - 1) && is_add ){
+                        if(index == (settings.count2 - 1) && is_add ){
                             if(settings.maxCount == ''){
                                 addRow(settings, parent);
                             }

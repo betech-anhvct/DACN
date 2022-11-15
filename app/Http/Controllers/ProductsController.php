@@ -10,13 +10,15 @@ use Illuminate\Http\Request;
 class ProductsController extends BaseController {
     public $model = Products::class;
     public function getProduct() {
-        $products = (Products::where('status', '!=', '0'))->get();
+        $products = (Products::with('rImages')->where('status', '!=', '0'))->get();
         $topProducts = Products::all()->take(5);
-        return view('userPage.shopProducts', compact('products', 'topProducts'));
+        $latedProducts = Products::all()->take(3);
+        $categories = Categories::where('status', '!=', '0')->get();
+        return view('userPage.shopProducts', compact('products', 'topProducts', 'categories', 'latedProducts'));
     }
 
     public function shopProductDetail($id) {
-        $products = (Products::find($id));
+        $products = (Products::with(['rImages', 'rCategories'])->where(['status', '!=', '0', 'id' => $id]))->get();
         return view('userPage.shopProductsDetail', ['products' => $products]);
     }
 
@@ -34,15 +36,23 @@ class ProductsController extends BaseController {
 
     // Admin page
     public function getProductAdmin() {
-        $products = Products::with('rCategories')->get();
+        $products = Products::with('rCategories')->where('status', '!=', '0')->get();
         return view('adminPage.product', compact('products'));
     }
 
     public function updateProduct(Request $request, $id) {
         $product = $this->update($request, $id);
 
+        // List old img not delete
+        $listImg = [];
+        if ($request->oldFileUpload) {
+            foreach ($request->oldFileUpload as $img) {
+                $listImg[] = $img;
+            }
+        }
+
         // Remove old img
-        Images::where(['id_product' => $id])->delete();
+        Images::where('id_product', $id)->whereNotIn('id', $listImg)->delete();
 
         // Upload New Img
         $files = $request->fileUpload;

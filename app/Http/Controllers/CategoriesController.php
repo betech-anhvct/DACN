@@ -10,22 +10,29 @@ class CategoriesController extends BaseController {
     public $model = Categories::class;
     public function getCategory() {
         $categories = $this->index();
-        return view('adminPage.categories', compact('categories'));
+        return view('adminPage.category', compact('categories'));
     }
 
     public function updateCategory(Request $request, $id) {
-        $user = $this->update($request, $id, false);
+        $category = $this->update($request, $id, false);
         $isSuccess = true;
-        return view('adminPage.userEdit', compact('user', 'isSuccess'));
+        $categories = Categories::where('status', 1)->get();
+        return view('adminPage.categoryEdit', compact('category', 'categories'));
     }
 
     public function showCategory($id) {
-        $user = $this->show($id);
-        return view('adminPage.userEdit', compact('user'));
+        $category = $this->show($id);
+        $categories = Categories::where('status', 1)->get();
+        return view('adminPage.categoryEdit', compact('category', 'categories'));
     }
 
-    public function deleteCategory($id)
-    {
+    public function createCategory() {
+        $category = $this->show(0);
+        $categories = Categories::where('status', 1)->get();
+        return view('adminPage.categoryEdit', compact('category', 'categories'));
+    }
+
+    public function deleteCategory($id) {
         $this->destroy($id);
         return response()->json(['msg' => 'Xóa thành công']);
     }
