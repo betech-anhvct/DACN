@@ -93,6 +93,48 @@ class DatabaseSeeder extends Seeder {
         (6, 'Gà rán')";
         DB::statement($sql);
 
+        if (DB::table('images')) {
+            DB::table('images')->truncate();
+        }
+        $sql = "INSERT INTO `images` (`id`, `id_product`, `name`, `status`, `created_at`, `updated_at`) VALUES
+        (11, '4', 'ISKlA0yNbMF6gxyUovY0uI4ploaHrO59YyYwgpm5.jpg', '1', '2022-11-14 02:24:33', '2022-11-14 02:24:33'),
+        (12, '5', 'V0UzbgESrFIpbtfV406jRTbiBzf6nJdDi8q8qeSo.jpg', '1', '2022-11-15 03:27:38', '2022-11-15 03:27:38'),
+        (13, '6', '5YoGwsasAIUzLEtQtFge8CtyThC6hYXTBhQYNqQM.jpg', '1', '2022-11-15 03:27:50', '2022-11-15 03:27:50'),
+        (14, '39', 'hZGSJQo3AcXn2ossJfvRTPfYD9Es01snfcTc0adk.jpg', '1', '2022-11-15 03:31:10', '2022-11-15 03:31:10'),
+        (15, '2', '2uYzO7DO5cFVrAIBkel29j7lgLgK1Hr57t5B63KG.jpg', '1', '2022-11-15 03:31:22', '2022-11-15 03:31:22'),
+        (16, '3', 'L1RFHUydPVETOeCYPxBpRwLP2AdSco7G10XeBSKA.jpg', '1', '2022-11-15 03:31:29', '2022-11-15 03:31:29'),
+        (17, '7', 'uSQKY6UEUxCzuRq7O7d7MvohFiwqICOOZjX5SmMl.jpg', '1', '2022-11-15 03:37:32', '2022-11-15 03:37:32'),
+        (18, '8', 'PtZcvGgNwL6OLTFYSIVMTpLQaMfSvMOZuoOr1CA7.jpg', '1', '2022-11-15 03:39:32', '2022-11-15 03:39:32'),
+        (19, '9', 'm2TA0JukkCyJfdCqYFHMHsO3AYwAAqJUPtAEvFvY.jpg', '1', '2022-11-15 03:39:41', '2022-11-15 03:39:41'),
+        (20, '10', 'PeJKWi3Uz0yS9vLuOQVwGokwcAPqCm3SrJGRxhyW.jpg', '1', '2022-11-15 03:39:52', '2022-11-15 03:39:52'),
+        (21, '11', 'kj79GuC7Jfmd8HpMgStEN0I1FNt5uPv2820glaJM.jpg', '1', '2022-11-15 03:40:03', '2022-11-15 03:40:03'),
+        (23, '18', '6DsYNXfn1W73djppEOn5j2FlHvr4hWt4woJyAJ3j.jpg', '1', '2022-11-15 03:42:33', '2022-11-15 03:42:33'),
+        (24, '13', 'LSP4boYU9ozC96EWnK0DwSYjl79Cim31asPHXQbF.jpg', '1', '2022-11-15 03:42:55', '2022-11-15 03:42:55'),
+        (25, '14', 'REqypiyqqyb98jjmjHULFSPDwSTSbQKuYQFNC2DR.jpg', '1', '2022-11-15 03:43:03', '2022-11-15 03:43:03'),
+        (28, '16', '7aKXsPLON4Xpwb07xuMG4qbCISDzLmc2KcJRUWZV.jpg', '1', '2022-11-15 03:43:44', '2022-11-15 03:43:44'),
+        (29, '17', 'RUZ5kgd6GIJBO5lsgP8OZ7eT6aVBomiVAWhrPNUE.jpg', '1', '2022-11-15 03:43:45', '2022-11-15 03:43:45'),
+        (30, '15', 'GRaEmMbRNzOXg2KFZKL0rMMzabUWNz1Nu9TkOK3d.jpg', '1', '2022-11-15 03:44:20', '2022-11-15 03:44:20'),
+        (31, '12', 'ZJFRa93CVniawYgfHNgW0eoycsHYHUU9xuxl7GdY.jpg', '1', '2022-11-15 03:44:30', '2022-11-15 03:44:30'),
+        (32, '19', '4U0im9QfrLPzoZTmGLgrNJOWdTxDax4wPu4OvPRo.jpg', '1', '2022-11-15 03:46:47', '2022-11-15 03:46:47'),
+        (33, '20', 'daN5EyML4xBRV2t6L8GIgU6xz4EbDClKN8Q0FflI.jpg', '1', '2022-11-15 03:46:52', '2022-11-15 03:46:52'),
+        (34, '21', 'hPGBoSEk8x8lEwLfxsf6Q7VUICuEjhTF26hO9ifz.jpg', '1', '2022-11-15 03:46:57', '2022-11-15 03:46:57'),
+        (35, '22', 'FyEoz4omYri0iViovmhBku4fmj9NXaO2pG3vRSaD.jpg', '1', '2022-11-15 03:47:03', '2022-11-15 03:47:03'),
+        (36, '23', 'mkqsTvvLxpAl36hnRooLfoT0KrgocuO3bGHsQEH0.jpg', '1', '2022-11-15 03:47:11', '2022-11-15 03:47:11'),
+        (37, '24', '2AxT0EUdxSIgFgFtWLHB2tx6yzpX0sZVKXbt9Ib1.jpg', '1', '2022-11-15 03:47:15', '2022-11-15 03:47:15'),
+        (38, '25', 'UmWLRy8iumF9cyz1BeLcX4lC9ZLr6fiSa925CrdN.jpg', '1', '2022-11-15 03:49:48', '2022-11-15 03:49:48'),
+        (39, '26', 'z988T3sYk5j5ybSpIKljhHmzQo4FLQ7C6KBnEiBU.jpg', '1', '2022-11-15 03:49:54', '2022-11-15 03:49:54'),
+        (40, '27', 'NM0X458ejuNmetPkLrcjElZXdeGAjOFC2WEfnmIC.jpg', '1', '2022-11-15 03:49:58', '2022-11-15 03:49:58'),
+        (41, '28', '7DiVkwYdOQCXrEXgIm81gs7OrU8rDcgDhFGY7CoP.jpg', '1', '2022-11-15 03:50:02', '2022-11-15 03:50:02'),
+        (42, '29', 'UAG9Ex5GkJsKfSc7rkhk0otGrt2eP5y4upRMA2ws.jpg', '1', '2022-11-15 03:50:07', '2022-11-15 03:50:07'),
+        (43, '30', '1F5VvImUB3583QDTZOit09gcNlauQhybShBeW1f7.jpg', '1', '2022-11-15 03:50:13', '2022-11-15 03:50:13'),
+        (44, '31', 'KcoFJ3AWA5zZuM8d9NY0Pzph6zgEwIxVG8gavbv9.jpg', '1', '2022-11-15 03:51:11', '2022-11-15 03:51:11'),
+        (45, '32', 'SB3uyN2jVgaReqhDb31fythnvazpZUEURbl5zs0P.jpg', '1', '2022-11-15 03:51:15', '2022-11-15 03:51:15'),
+        (46, '33', 'lozt7hPeleNRuKr91MJ52oeWk3Nhtkid3ZOyt0pK.jpg', '1', '2022-11-15 03:51:19', '2022-11-15 03:51:19'),
+        (47, '34', 'EEaNKSUHl2Xg8zijUnqJ8H9u73oQFWYgaf3f3P12.jpg', '1', '2022-11-15 03:51:23', '2022-11-15 03:51:23'),
+        (48, '35', 'UZkfeig4wHhQlKhd2cm4RwcfrmDTKQ9KCtxYgZSz.jpg', '1', '2022-11-15 03:51:28', '2022-11-15 03:51:28'),
+        (49, '36', 'eiZHeBnctgbPmhlGkW8fRyubF2eiSEAoddlp2Dn8.jpg', '1', '2022-11-15 03:51:33', '2022-11-15 03:51:33'),
+        (50, '37', '444xKH2YAGaDyYpP5Z5kMq9IE0CluEzY3uc9g1kP.jpg', '1', '2022-11-15 03:51:47', '2022-11-15 03:51:47');";
 
+        DB::statement($sql);
     }
 }
