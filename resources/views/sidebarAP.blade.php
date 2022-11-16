@@ -1,3 +1,9 @@
+@if (Auth::check() && Auth::user()->role != 0)
+@else
+    <script>
+        window.location = '{{ url('/index') }}';
+    </script>
+@endif
 <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
     <div class="nano">
         <div class="nano-content">
@@ -10,8 +16,10 @@
                 </li>
                 <li class="label">Quản lí</li>
                 <li><a href="{{ url('/admin/users') }}"><i class="ti-user"></i> Người dùng </a></li>
-                <li><a href="{{ url('/admin/category') }}"><i class="ti-bar-chart-alt"></i> Danh mục </a></li>
-                <li><a href="{{ url('/admin/product') }}"><i class="ti-bar-chart-alt"></i> Sản phẩm </a></li>
+                <li><a href="{{ url('/admin/category') }}"><i class="ti-direction-alt"></i> Danh mục </a></li>
+                <li><a href="{{ url('/admin/product') }}"><i class="ti-package"></i> Sản phẩm </a></li>
+                <li><a href="{{ url('/admin/voucher') }}"><i class="ti-ticket"></i> Mã giảm giá </a></li>
+                <li><a href="{{ url('/admin/order') }}"><i class="ti-truck"></i> Đơn hàng </a></li>
             </ul>
         </div>
     </div>
@@ -171,7 +179,7 @@
                     </div>
                     <div class="dropdown dib">
                         <div class="header-icon" data-toggle="dropdown">
-                            <span class="user-avatar">{{ Auth::user()->name }}
+                            <span class="user-avatar">@auth{{ Auth::user()->name }}@endauth
                                 <i class="ti-angle-down f-s-10"></i>
                             </span>
                             <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
@@ -204,10 +212,10 @@
                                             </a>
                                         </li> --}}
                                         <li>
-                                            <a href="{{ url('logout') }}">
+                                            <button class="btn btn-outline-secondary col-12" onclick="window.location = '{{ url('/logout') }}';">
                                                 <i class="ti-power-off"></i>
                                                 <span>Đăng xuất</span>
-                                            </a>
+                                            </button>
                                         </li>
                                     </ul>
                                 </div>

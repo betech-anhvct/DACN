@@ -134,7 +134,14 @@ class DatabaseSeeder extends Seeder {
         (48, '35', 'UZkfeig4wHhQlKhd2cm4RwcfrmDTKQ9KCtxYgZSz.jpg', '1', '2022-11-15 03:51:28', '2022-11-15 03:51:28'),
         (49, '36', 'eiZHeBnctgbPmhlGkW8fRyubF2eiSEAoddlp2Dn8.jpg', '1', '2022-11-15 03:51:33', '2022-11-15 03:51:33'),
         (50, '37', '444xKH2YAGaDyYpP5Z5kMq9IE0CluEzY3uc9g1kP.jpg', '1', '2022-11-15 03:51:47', '2022-11-15 03:51:47');";
+        DB::statement($sql);
 
+        if (DB::table('vouchers')) {
+            DB::table('vouchers')->truncate();
+        }
+        $sql = "INSERT INTO `vouchers` (`id`, `name`, `code`, `condition`, `product_list`, `discount`, `description`, `quantity`, `begin_date`, `end_date`, `status`, `created_at`, `updated_at`) VALUES
+        (1, 'Mã giảm giá 20k', 'lf2yRxC5vZ', '1', NULL, '20000', NULL, '10', '2022-11-16 14:57:00', '2023-01-31 14:59:00', '1', '2022-11-16 00:59:12', '2022-11-16 08:24:23'),
+        (2, 'Mã giảm giá 50k', 'fR0N9Eb3b4', '1', NULL, '50000', NULL, '10', '2022-11-16 01:11:00', '2022-12-16 15:21:00', '1', '2022-11-16 08:20:43', '2022-11-16 08:21:37');";
         DB::statement($sql);
     }
 }

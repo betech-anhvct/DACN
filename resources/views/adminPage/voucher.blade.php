@@ -30,7 +30,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-title">
-                                <h1>Danh sách danh mục</h1>
+                                <h1>Danh sách mã giảm giá</h1>
                                 <a href="{{ url('/admin/voucher/create') }}"><button class="btn btn-success m-1"><i
                                             class="fa fa-plus"></i>&ensp;Thêm</button></a>
                                 <div id="deleteMsg">
@@ -42,8 +42,12 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">ID</th>
-                                                <th>Danh mục</th>
-                                                <th>Danh mục cha</th>
+                                                <th>Mã giảm giá</th>
+                                                <th>CODE</th>
+                                                <th>Điều kiện</th>
+                                                <th>Số lượng</th>
+                                                <th>Ngày bắt đầu</th>
+                                                <th>Ngày kết thúc</th>
                                                 <th>Trạng thái</th>
                                                 <th></th>
                                             </tr>
@@ -54,11 +58,11 @@
                                             <tr>
                                                 <td class="text-center">{{ $voucher->id }}</td>
                                                 <td>{{ $voucher->name }}</td>
-                                                <td>@foreach ($vouchers as $c)
-                                                    @if($c->id == $voucher->id_parent)
-                                                    {{ $c->name }}
-                                                    @endif
-                                                    @endforeach</td>
+                                                <td>{{ $voucher->code }}</td>
+                                                <td>{{ $voucher->getCondition() }}</td>
+                                                <td>{{ $voucher->quantity }}</td>
+                                                <td>{{ $voucher->begin_date }}</td>
+                                                <td>{{ $voucher->end_date }}</td>
                                                 <td>@if($voucher->status==1)Hiển thị@else Ẩn @endif</td>
 
                                                 <th class="col-3" style="text-align:right;">
