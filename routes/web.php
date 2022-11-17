@@ -42,10 +42,10 @@ Route::get('/shopProduct', [
     'uses' => 'App\Http\Controllers\ProductsController@getProduct'
 ]);
 
-route::get('/shopProductDetail/{sid}',[
+route::get('/shopProductDetail/{sid}', [
     'uses' => 'App\Http\Controllers\ProductsController@getProductDetail'
 ]);
-route::get('/contact', function (){
+route::get('/contact', function () {
     return view('userPage.contact');
 });
 //-----------------------------cart---------------------------//
@@ -58,12 +58,12 @@ Route::post(
         'uses' => 'App\Http\Controllers\CartController@add2Cart',
     ]
 );
-Route::post('/cart', function(){
+Route::post('/cart', function () {
     return view('userPage.cart');
 });
 
 //-----------------------------checkout---------------------------//
-Route::get('/checkout', function(){
+Route::get('/checkout', function () {
     return view('userPage.checkout');
 });
 
@@ -135,8 +135,12 @@ Route::post('/admin/product/update/{id}', [
     'uses' => 'App\Http\Controllers\ProductsController@updateProduct'
 ]);
 
-Route::get('/admin/category/create',[
+Route::get('/admin/category/create', [
     'uses' => 'App\Http\Controllers\CategoriesController@createCategory'
+]);
+
+Route::post('/admin/category/create', [
+    'uses' => 'App\Http\Controllers\CategoriesController@storeCategory'
 ]);
 
 Route::get('/admin/category/update/{id}', [
@@ -145,6 +149,26 @@ Route::get('/admin/category/update/{id}', [
 
 Route::post('/admin/category/update/{id}', [
     'uses' => 'App\Http\Controllers\CategoriesController@updateCategory'
+]);
+
+Route::get('/admin/voucher', [
+    'uses' => 'App\Http\Controllers\VoucherController@getVoucher'
+]);
+
+Route::get('/admin/voucher/create', [
+    'uses' => 'App\Http\Controllers\VoucherController@createVoucher'
+]);
+
+Route::post('/admin/voucher/create', [
+    'uses' => 'App\Http\Controllers\VoucherController@storeVoucher'
+]);
+
+Route::get('/admin/voucher/update/{id}', [
+    'uses' => 'App\Http\Controllers\VoucherController@showVoucher'
+]);
+
+Route::post('/admin/voucher/update/{id}', [
+    'uses' => 'App\Http\Controllers\VoucherController@updateVoucher'
 ]);
 
 //-----------------------------END-ADMIN-PAGE----------------------------------//

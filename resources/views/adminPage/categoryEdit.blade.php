@@ -29,7 +29,7 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-title">
-                            <h4>Chỉnh sửa <b>{{ $category->name }}</b></h4>
+                            <h4>@if($category->id) Chỉnh sửa <b>{{ $category->name }}</b> @else <h2>Tạo mới danh mục</h2>@endif </h4>
                             @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>

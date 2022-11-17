@@ -29,7 +29,7 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-title">
-                            <h4>Chỉnh sửa <b>{{ $user->name }}</b></h4>
+                            <h4>@if($user->id) Chỉnh sửa <b>{{ $user->name }}</b> @else <h2>Tạo mới người dùng</h2>@endif </h4>
                             @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>

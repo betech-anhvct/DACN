@@ -17,7 +17,7 @@ class CategoriesController extends BaseController {
         $category = $this->update($request, $id, false);
         $isSuccess = true;
         $categories = Categories::where('status', 1)->get();
-        return view('adminPage.categoryEdit', compact('category', 'categories'));
+        return view('adminPage.categoryEdit', compact('category', 'categories', 'isSuccess'));
     }
 
     public function showCategory($id) {
@@ -32,8 +32,9 @@ class CategoriesController extends BaseController {
         return view('adminPage.categoryEdit', compact('category', 'categories'));
     }
 
-    public function deleteCategory($id) {
-        $this->destroy($id);
-        return response()->json(['msg' => 'Xóa thành công']);
+    public function storeCategory(Request $request) {
+        $this->store($request);
+        $categories = $this->index();
+        return redirect('/admin/category');
     }
 }
