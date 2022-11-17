@@ -56,7 +56,7 @@
                                                 <td>{{ $product->name }}</td>
                                                 <td>{{ $product->rCategories->name }}</td>
                                                 <td>{{ $product->stock }}</td>
-                                                <td>@if($product->status==1)Hiển thị@else Ẩn @endif</td>
+                                                <td>{{ $product->getStatus() }}</td>
                                                 <th class="col-3" style="text-align:right;">
                                                     <a href="{{ url('/admin/product/update',$product->id) }}"><button
                                                             class="btn btn-outline-primary m-1"

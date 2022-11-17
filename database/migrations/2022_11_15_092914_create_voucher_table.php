@@ -11,16 +11,17 @@ class CreateVoucherTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('voucher', function (Blueprint $table) {
+        Schema::create('vouchers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('code');
             $table->string('condition')->default(1);
-            $table->string('product_list');
+            $table->string('product_list')->nullable();
+            $table->string('discount');
             $table->string('description')->nullable();
             $table->string('quantity')->default('100');
-            $table->dateTime('begin_date');
-            $table->dateTime('end_date');
+            $table->dateTime('begin_date')->nullable();
+            $table->dateTime('end_date')->nullable();
             $table->string('status')->default(1);
             $table->timestamps();
         });

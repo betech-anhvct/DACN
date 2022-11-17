@@ -34,6 +34,7 @@
     <link href="{{ asset('css/styleAP.css') }}" rel="stylesheet">
     <link href="{{ asset('css/lib/jsgrid/jsgrid-theme.min.css" rel="stylesheet') }}" />
     <link href="{{ asset('css/lib/jsgrid/jsgrid.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
 </head>
 
 <body>

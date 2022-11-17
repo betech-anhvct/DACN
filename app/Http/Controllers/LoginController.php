@@ -22,7 +22,7 @@ class LoginController extends Controller {
         $u = new User($user);
         $u->save();
         $this->postLogin($request);
-        return redirect('/index'); 
+        return redirect('/index');
     }
 
     public function postLogin(Request $request) {

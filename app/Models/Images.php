@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class Images extends Model
+class Images extends BaseModel
 {
     protected $fillable = [
         'id_product',
@@ -46,4 +46,4 @@ class Images extends Model
     public static function getRuleTrans() {
         return [];
     }
-} 
+}
