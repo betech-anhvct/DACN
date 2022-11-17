@@ -63,8 +63,7 @@
                                                 <td>{{ $voucher->quantity }}</td>
                                                 <td>{{ $voucher->begin_date }}</td>
                                                 <td>{{ $voucher->end_date }}</td>
-                                                <td>@if($voucher->status==1)Hiển thị@else Ẩn @endif</td>
-
+                                                <td>{{ $voucher->getStatus() }}</td>
                                                 <th class="col-3" style="text-align:right;">
                                                     <a href="{{ url('/admin/voucher/update',$voucher->id) }}"><button
                                                             class="btn btn-outline-primary m-1"

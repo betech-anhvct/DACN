@@ -107,11 +107,11 @@
                                         <div class="form-group col-6" id="product_list">
                                             @if ((old('condition') ?? $voucher->condition) == 2)
                                                 <label>Danh sách sản phẩm</label>
-                                                <div class="form">
-                                                    <button class="btn btn-outline-primary" type="button"
-                                                        id="btnAdd">Thêm</button>
-                                                    {{-- <button class="btn btn-outline-danger">Xóa</button> --}}
-                                                </div>
+                                                <select type="text" class="form-control" name="product_list[]" id="addProductList">
+                                                    @foreach ($products as $product)
+                                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             @else
                                                 <label>Giá tổng đơn hàng</label>
                                                 <input type="number" class="form-control" name="product_list"
@@ -148,22 +148,36 @@
     </div>
 
     <script>
+        var vals = [{{ $voucher->product_list }}];
         $(document).on('change', '#condition', function() {
             var condition = $(this).find(':selected').val();
-            $('#product_list').remove();
-            if (condition === 2) {
+            $('#product_list').empty();
+            if (condition == 2) {
                 html = '<label>Danh sách sản phẩm</label>' +
-                    '<div class="form">' +
-                    '<button class="btn btn-outline-primary" type="button"'
-                'id = "btnAdd" > Thêm < /button>' +
-                '</div>';
+                        '<select type="text" class="form-control" name="product_list[]" id="addProductList">' +
+                            @foreach ($products as $product)
+                            '<option value="{{ $product->id }}">{{ $product->name }}</option>' +
+                            @endforeach
+                        '</select>';
                 $('#product_list').append(html);
             } else {
-                html = '<label> Giá tổng đơn hàng <label>' +
+                html = '<label> Giá tổng đơn hàng </label>' +
                     '<input type="number" class="form-control" name="product_list"' +
                     'value="{{ old('product_list') ?? ($voucher->product_list ?? 0) }}">';
                 $('#product_list').append(html);
             }
+
+            $('#addProductList').select2({
+                multiple: true,
+            });
+            $('#addProductList').val(vals).trigger("change");
+        });
+
+        $(document).ready(function(){
+            $('#addProductList').select2({
+                multiple: true,
+            });
+            $('#addProductList').val(vals).trigger("change");
         });
     </script>
 @endsection

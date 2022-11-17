@@ -50,3 +50,4 @@
 <script src="{{ asset('js/lib/jsgrid/fields/jsgrid.field.control.js') }}"></script>
 <script src="{{ asset('js/lib/jsgrid/jsgrid-init.js') }}"></script>
 <script src="{{ asset('js/spartan-multi-image-picker.js') }}"></script>
+<script src="{{ asset('js/select2.min.js') }}"></script>

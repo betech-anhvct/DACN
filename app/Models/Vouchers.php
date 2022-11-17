@@ -45,6 +45,7 @@ class Vouchers extends BaseModel {
             'quantity' => ['required', 'min:0'],
             'name' => ['required', 'string'],
             'discount' => ['required', 'min:0'],
+            'product_list' => ['required','regex:/^[a-z0-9 \,]*$/i'],
         ];
     }
 
@@ -56,6 +57,7 @@ class Vouchers extends BaseModel {
             'unique' => ':attribute đã được sử dụng',
             'string' => 'Phải là định dạng chuỗi',
             'max' => ':attribute có tối đa :max ký tự',
+            'regex' => ':attribute chứa giá trị không hợp lệ',
         ];
     }
 }
