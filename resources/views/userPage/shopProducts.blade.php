@@ -12,7 +12,7 @@
                     <div class="breadcrumb__text">
                         <h2>Organi Shop</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.html">Trang chủ</a>
+                            <a href="{{ url('/index') }}">Trang chủ</a>
                             <span>Cửa hàng</span>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
                         <div class="sidebar__item">
-                            <h4>Department</h4>
+                            <h4>Các loại thực phẩm</h4>
                             <ul>
                                 @foreach ($categories as $cate )
                                 <li><a href="#">{{ $cate->name }}</a></li>
@@ -79,7 +79,7 @@
                 <div class="col-lg-9 col-md-7">
                     <div class="product__discount">
                         <div class="section-title product__discount__title">
-                            <h2>Sale Off</h2>
+                            <h2>Sản phẩm giảm giá</h2>
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
@@ -180,7 +180,7 @@
                                 </div>
                                 <div class="product__item__text">
                                     <h6><a href="#">{{ $product->name }}</a></h6>
-                                    <h5>{{ $product->price }}vnd</h5>
+                                    <h5>{{ number_format($product->price) }} VND</h5>
                                 </div>
                             </div>
                         </div>
