@@ -15,7 +15,7 @@ class Categories extends BaseModel
         'status',
     ];
 
-    public function rCategories()
+    public function rProducts()
     {
         return $this->hasOne(Products::class, 'id_category');
     }

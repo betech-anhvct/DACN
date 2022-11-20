@@ -42,6 +42,14 @@ Route::get('/shopProduct', [
     'uses' => 'App\Http\Controllers\ProductsController@getProduct'
 ]);
 
+Route::get('/shopProduct/category/{category}', [
+    'uses' => 'App\Http\Controllers\ProductsController@findByCategory'
+]);
+
+Route::get('/shopProduct/search', [
+    'uses' => 'App\Http\Controllers\ProductsController@searchProduct'
+]);
+
 route::get('/shopProductDetail/{sid}', [
     'uses' => 'App\Http\Controllers\ProductsController@getProductDetail'
 ]);

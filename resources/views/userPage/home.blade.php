@@ -1,6 +1,6 @@
 @extends('masterUP')
 @section('contentUP')
-    <!-- Categories Section Begin -->
+    {{-- <!-- Categories Section Begin -->
     <section class="categories">
         <div class="container">
             <div class="row">
@@ -463,5 +463,5 @@
             </div>
         </div>
     </section>
-    <!-- Blog Section End -->
+    <!-- Blog Section End --> --}}
 @endsection
