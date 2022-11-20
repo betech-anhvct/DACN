@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Auth;
 
 class BaseController extends Controller {
     public $model = 'App\Models\BaseModel';
-    public function index() {
-        $listModel = $this->model::where('status', '<>', '0')->orderBy('id','DESC')->get();
+    public function index($rModel = []) {
+        $listModel = $this->model::with($rModel)->where('status', '<>', '0')->orderBy('id','DESC')->get();
         return $listModel;
     }
 

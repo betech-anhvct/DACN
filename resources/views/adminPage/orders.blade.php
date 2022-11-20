@@ -17,7 +17,7 @@
                             <div class="page-title">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ url('admin') }}">Trang chủ</a></li>
-                                    <li class="breadcrumb-item active">Danh mục</li>
+                                    <li class="breadcrumb-item active">Đơn hàng</li>
                                 </ol>
                             </div>
                         </div>
@@ -30,48 +30,46 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-title">
-                                    <h1>Danh sách danh mục</h1>
-                                    <a href="{{ url('/admin/category/create') }}"><button class="btn btn-success m-1"><i
+                                    <h1>Danh sách đơn hàng</h1>
+                                    <a href="{{ url('/admin/order/create') }}"><button class="btn btn-success m-1"><i
                                                 class="fa fa-plus"></i>&ensp;Thêm</button></a>
                                     <div id="deleteMsg">
                                     </div>
                                 </div>
                                 <div class="bootstrap-data-table-panel">
-                                    <div class="table-responsive" id="category-table">
+                                    <div class="table-responsive" id="order-table">
                                         <table id="row-select" class="display table table-borderd table-hover">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">ID</th>
-                                                    <th>Danh mục</th>
-                                                    <th>Danh mục cha</th>
+                                                    <th>Email</th>
+                                                    <th>Số điện thoại</th>
+                                                    <th>Địa chỉ</th>
+                                                    <th>Tổng tiền</th>
                                                     <th>Trạng thái</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
 
                                             <tbody>
-                                                @foreach ($categories as $category)
+                                                @foreach ($orders as $order)
                                                     <tr>
-                                                        <td class="text-center">{{ $category->id }}</td>
-                                                        <td>{{ $category->name }}</td>
-                                                        <td>
-                                                            @foreach ($categories as $c)
-                                                                @if ($c->id == $category->id_parent)
-                                                                    {{ $c->name }}
-                                                                @endif
-                                                            @endforeach
-                                                        </td>
-                                                        <td>{{ $category->getStatus() }}</td>
+                                                        <td class="text-center">{{ $order->id }}</td>
+                                                        <td>{{ $order->rUsers->email }}</td>
+                                                        <td>{{ $order->phone }}</td>
+                                                        <td>{{ $order->address }}</td>
+                                                        <td>{{ number_format($order->price_total) }}</td>
+                                                        <td>{{ $order->getStatus() }}</td>
 
                                                         <th class="col-3" style="text-align:right;">
-                                                            <a href="{{ url('/admin/category/update', $category->id) }}"><button
+                                                            <a href="{{ url('/admin/order/update', $order->id) }}"><button
                                                                     class="btn btn-outline-primary m-1"
-                                                                    name="btn-update[{{ $category->id }}]"
-                                                                    id="{{ $category->id }}">Chỉnh
+                                                                    name="btn-update[{{ $order->id }}]"
+                                                                    id="{{ $order->id }}">Chỉnh
                                                                     sửa</button></a>
                                                             <button class="btn btn-outline-danger m-1"
-                                                                name="btn-delete[{{ $category->id }}]"
-                                                                id="{{ $category->id }}">Xóa</button>
+                                                                name="btn-delete[{{ $order->id }}]"
+                                                                id="{{ $order->id }}">Xóa</button>
                                                         </th>
                                                     </tr>
                                                 @endforeach
@@ -104,14 +102,14 @@
                 isDelete = window.confirm('Bạn có muốn xóa ' + id);
                 if (isDelete) {
                     $.ajax({
-                        url: '{{ url('/admin/categories/delete') }}/' + id,
+                        url: '{{ url('/admin/orders/delete') }}/' + id,
                         type: 'POST',
                         data: {
                             _token: "{{ csrf_token() }}",
                             id: id,
                         }
                     }).done(function(data) {
-                        window.location = '{{ url('/admin/category') }}';
+                        window.location = '{{ url('/admin/order') }}';
                     });
                 }
             });

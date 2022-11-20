@@ -172,4 +172,23 @@ Route::post('/admin/voucher/update/{id}', [
     'uses' => 'App\Http\Controllers\VoucherController@updateVoucher'
 ]);
 
+Route::get('/admin/order', [
+    'uses' => 'App\Http\Controllers\OrdersController@getOrder'
+]);
+
+Route::get('/admin/order/create', [
+    'uses' => 'App\Http\Controllers\OrdersController@createOrder'
+]);
+
+Route::post('/admin/order/create', [
+    'uses' => 'App\Http\Controllers\OrdersController@storeOrder'
+]);
+
+Route::get('/admin/order/update/{id}', [
+    'uses' => 'App\Http\Controllers\OrdersController@showOrder'
+]);
+
+Route::post('/admin/order/update/{id}', [
+    'uses' => 'App\Http\Controllers\OrdersController@updateOrder'
+]);
 //-----------------------------END-ADMIN-PAGE----------------------------------//
