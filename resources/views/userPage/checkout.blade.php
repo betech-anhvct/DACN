@@ -46,13 +46,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="shoping__continue">
-                                    <div class="shoping__discount">
-                                        <h5>Mã giảm giá</h5>
-                                        <form action="#">
-                                            <input type="text" placeholder="Enter your coupon code">
-                                            <button type="submit" class="site-btn">Sử dụng mã</button>
-                                        </form>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -60,6 +54,15 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="checkout__order">
                             <h4>Đơn hàng</h4>
+                            <h4>
+                                <div class="shoping__discount">
+                                    <h5>Mã giảm giá</h5>
+                                    <form action="#">
+                                        <input type="text" placeholder="Nhập mã ở đây">
+                                        <button type="submit" class="site-btn">Sử dụng mã</button>
+                                    </form>
+                                </div>
+                            </h4>
                             <div class="checkout__order__products">Sản Phẩm <span>Giá Sản phẩm</span></div>
                             <ul>
                                 <li>Vegetable’s Package <span>
