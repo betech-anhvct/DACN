@@ -54,9 +54,9 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="shoping__cart__btns">
-                            <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                            <a href="{{ URL('/shopProduct') }}" class="primary-btn cart-btn">Tiếp tục mua sắm</a>
                             <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                                Upadate Cart</a>
+                                Cập nhật giỏ hàng</a>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -77,7 +77,7 @@
                                 <li>Subtotal <span>$454.98</span></li>
                                 <li>Total <span>$454.98</span></li>
                             </ul>
-                            <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                            <a href="{{ URL('/checkout') }}" class="primary-btn">Đến Trang thanh thoán</a>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart as ModelsCart;
 use App\Models\Products;
 use App\Models\ProductsDetail;
 use App\Models\User;
@@ -91,6 +92,9 @@ class CartController extends Controller
         };
     }
 
+    //Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+    // nếu chưa thì thêm mới
+    //Ngược lại tăng số lượng thêm 1
     private function checkCart($cart, $key, $qty)
     {
         if ($cart == '') {
@@ -111,7 +115,7 @@ class CartController extends Controller
         //     ->select('order_details.*', 'products.product_name','product_details.size', 'product_details.color', 'product_details.material')
         //     ->get();
         if (Auth::check()) {
-            $list_checkout_cart = Cart::where('id_user', Auth::user()->id_user)->get();
+            $list_checkout_cart = \App\Models\Cart::where('id_user', Auth::user()->id_user)->get();
             // $id_user = Auth::user()->id_user;
             //->join('cart', 'users.id_user', '=', 'cart.id_user')
 
@@ -126,7 +130,7 @@ class CartController extends Controller
                     return redirect()->back()->with(['err' => 'Product "' . $dt->id . '" id "' . $dt->name . '" size "' . $dt->price . '" remaining not enough']);
                 }
             }
-            return view('userpage.user_checkout', compact('data'));
+            return view('userpage.checkout', compact('data'));
         } else {
             return redirect('login');
         }
