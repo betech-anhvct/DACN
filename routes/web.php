@@ -58,10 +58,25 @@ Route::post(
         'uses' => 'App\Http\Controllers\CartController@add2Cart',
     ]
 );
-Route::post('/cart', function () {
-    return view('userPage.cart');
-});
+// Route::post('/cart', function () {
+//     return view('userPage.cart');
+// });
 
+Route::post(
+    'updatecart',
+    [
+        'as' => 'cap-nhat-gio-hang',
+        'uses' => 'App\Http\Controllers\CartController@changeQuantity'
+    ]
+);
+
+Route::post(
+    'deletefromcart',
+    [
+        'as' => 'xoa-gio-hang',
+        'uses' => 'App\Http\Controllers\CartController@delCartItem'
+    ]
+);
 //-----------------------------checkout---------------------------//
 Route::get('/checkout', function () {
     return view('userPage.checkout');
@@ -172,6 +187,7 @@ Route::post('/admin/voucher/update/{id}', [
     'uses' => 'App\Http\Controllers\VoucherController@updateVoucher'
 ]);
 
+//-----------------------------END-ADMIN-PAGE----------------------------------//
 Route::get('/admin/order', [
     'uses' => 'App\Http\Controllers\OrdersController@getOrder'
 ]);
