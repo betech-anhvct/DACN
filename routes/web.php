@@ -98,7 +98,8 @@ Route::get('/checkout', function () {
 Route::get('/admin', function () {
     if (Auth::check()) {
         if (Auth::user()->role != 0) {
-            return view('adminPage.home');
+            return redirect('admin/users');
+            // return view('adminPage.home');
         }
     }
     return redirect(url('/index'));

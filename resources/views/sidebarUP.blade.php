@@ -8,7 +8,7 @@
         <ul>
             <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
         </ul>
-        <div class="header__cart__price">Tổng trị Giá: <span>$150.00</span></div>
+        {{-- <div class="header__cart__price">Tổng trị Giá: <span>$150.00</span></div> --}}
     </div>
     <div class="humberger__menu__widget">
         <div class="header__top__right__auth">
@@ -119,7 +119,7 @@
                                     @endif
                                 </span></a></li>
                     </ul>
-                    <div class="header__cart__price">Tổng trị giá: <span>$150.00</span></div>
+                    <div class="header__cart__price"><span></span></div>
                 </div>
             </div>
         </div>

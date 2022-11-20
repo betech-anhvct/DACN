@@ -9,7 +9,7 @@
         <div class="nano-content">
             <ul>
                 <div class="logo"><a href="{{ url('index') }}">
-                        <!-- <img src="images/logo.png" alt="" /> --><span>Trang chủ</span>
+                        <!-- <img src="images/logo.png" alt="" /> --><span>Trang người dùng</span>
                     </a></div>
                 <li class="label">Main</li>
                 <li><a href="{{ url('/admin') }}"><i class="ti-home"></i> Trang chủ</a>
