@@ -89,8 +89,24 @@ Route::post(
 Route::get('/checkout', function () {
     return view('userPage.checkout');
 });
-
-
+Route::post('checkout', [
+    'as' => 'cart-checkout-userpage',
+    'uses' => 'App\Http\Controllers\CartController@getCheckoutListUserPage'
+]);
+Route::post(
+    'checkVoucher',
+    [
+        'as' => 'kiem-tra-voucher',
+        'uses' => 'App\Http\Controllers\CheckoutController@checkVoucher',
+    ]
+);
+Route::post(
+    'order',
+    [
+        'as' => 'kiem-tra-voucher',
+        'uses' => 'App\Http\Controllers\CheckoutController@postOrder',
+    ]
+);
 
 //-----------------------------END-USER-PAGE-----------------------------------//
 

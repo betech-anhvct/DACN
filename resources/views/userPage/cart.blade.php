@@ -66,7 +66,7 @@
                         <ul>
                             <li>Tổng cộng <span id="totalCartPrice"></span></li>
                         </ul>
-                        <a href="#" class="primary-btn">TIẾN HÀNH THANH TOÁN</a>
+                        <a href="{{ URL('/checkout') }}" class="primary-btn">TIẾN HÀNH THANH TOÁN</a>
                     </div>
                 </div>
             </div>
