@@ -8,7 +8,7 @@
         <ul>
             <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
         </ul>
-        <div class="header__cart__price">Tổng trị Giá: <span>$150.00</span></div>
+        {{-- <div class="header__cart__price">Tổng trị Giá: <span>$150.00</span></div> --}}
     </div>
     <div class="humberger__menu__widget">
         <div class="header__top__right__auth">
@@ -22,11 +22,11 @@
             <li>
                 @auth
                 @if (Auth::user()->role != 0)
-                <li class="active"><a href="{{ url('/admin') }}">Trang quản lí</a></li>
-                @endif
-                @endauth
-                <li><a href="{{ url('contact') }}">Liên Hệ</a></li>
-                </li>
+            <li class="active"><a href="{{ url('/admin') }}">Trang quản lí</a></li>
+            @endif
+            @endauth
+            <li><a href="{{ url('contact') }}">Liên Hệ</a></li>
+            </li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
@@ -46,7 +46,7 @@
 
 <!-- Header Section Begin -->
 @if (session('message'))
-    <div>{{ session('message') }}</div>
+<div>{{ session('message') }}</div>
 @endif
 <header class="header">
     <div class="header__top">
@@ -112,14 +112,14 @@
                 <div class="header__cart">
                     <ul>
                         <li><a href="{{ url('/cart') }}"><i class="fa fa-shopping-bag"></i> <span id="cartItem">
-                            @if(session()->exists('cart'))
-                            {{count(session('cart'))}}
-                            @else
-                            0
-                            @endif
-                        </span></a></li>
+                                    @if(session()->exists('cart'))
+                                    {{count(session('cart'))}}
+                                    @else
+                                    0
+                                    @endif
+                                </span></a></li>
                     </ul>
-                    <div class="header__cart__price">Tổng trị giá: <span>$150.00</span></div>
+                    <div class="header__cart__price"><span></span></div>
                 </div>
             </div>
         </div>
@@ -140,26 +140,21 @@
                         <i class="fa fa-bars"></i>
                         <span>Các loại thực phẩm</span>
                     </div>
+                    @php
+                    $c = App\Models\Categories::where('status', '=', '1')->get();
+                    @endphp
                     <ul>
-                        <li><a href="#">Fresh Meat</a></li>
-                        <li><a href="#">Vegetables</a></li>
-                        <li><a href="#">Fruit & Nut Gifts</a></li>
-                        <li><a href="#">Fresh Berries</a></li>
-                        <li><a href="#">Ocean Foods</a></li>
-                        <li><a href="#">Butter & Eggs</a></li>
-                        <li><a href="#">Fastfood</a></li>
-                        <li><a href="#">Fresh Onion</a></li>
-                        <li><a href="#">Papayaya & Crisps</a></li>
-                        <li><a href="#">Oatmeal</a></li>
-                        <li><a href="#">Fresh Bananas</a></li>
+                        @foreach ($c as $category)
+                        <li><a href="{{ url('/shopProduct/category/'.$category->id) }}">{{ $category->name }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
             <div class="col-lg-9">
                 <div class="hero__search">
                     <div class="hero__search__form">
-                        <form action="#">
-                            <input type="text" placeholder="Bạn đang tìm gì?">
+                        <form action="{{ url('/shopProduct/search') }}" method="GET">
+                            <input type="text" name="search" placeholder="Bạn đang tìm gì?">
                             <button type="submit" class="site-btn">Tìm</button>
                         </form>
                     </div>
@@ -179,7 +174,7 @@
                         <span>FRUIT FRESH</span>
                         <h2>Thực phẩm <br />100% Organic</h2>
                         <p>Tự do tìm kiếm và mua sắm</p>
-                        <a href="{{ url('shopProduct') }}" class="primary-btn">SHOP NOW</a>
+                        <a href="{{ url('shopProduct') }}" class="primary-btn">MUA NGAY</a>
                     </div>
                 </div>
                 @endif

@@ -12,10 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class CartController extends Controller
-{
-    public function getCart()
-    {
+class CartController extends Controller {
+    public function getCart() {
         if (!session()->exists('cart')) {
             session(['cart']);
         }
@@ -40,8 +38,7 @@ class CartController extends Controller
     //     return $cart_list_item;
     // }
 
-    public function getCardQuantity()
-    {
+    public function getCardQuantity() {
         $cart = session()->get('cart');
         $total = 0;
         foreach ($cart as $cartItem) {
@@ -50,15 +47,15 @@ class CartController extends Controller
         return $total;
     }
 
-    public function add2Cart(Request $request)
-    {
+    public function add2Cart(Request $request) {
         // Đăng nhập
         if (!Auth::check()) return redirect('/login');
         $productID = $request->productID;
         $product = Products::find($request->productID);
         $cart = session()->get('cart');
         if (isset($cart[$productID])) {
-            $cart[$productID]['quantity'] = $cart[$productID]['quantity'] + 1;
+            $qty = isset($request->qty) ? $request->qty : 1;
+            $cart[$productID]['quantity'] = $cart[$productID]['quantity'] + $qty;
         } else {
             $cart[$productID] = [
                 'name' => $product->name,
@@ -67,36 +64,43 @@ class CartController extends Controller
             ];
         }
         session()->put('cart', $cart);
+        $data = count($cart);
+        return response()->json([
+            'data' => $data,
+            'msg' => 'Thêm sản phẩm thành công'
+        ]);
     }
 
-    function changeQuantity(Request $req)
-    {
+    function changeQuantity(Request $req) {
         if ($req->id && $req->quantity) {
-            $cart = session()->get('cart');
-            $cart[$req->id]['quantity'] = $req->quantity;
-            session()->put('cart', $cart);
-            $cart_list_item = session()->get('cart');
-            $newCartComponent = view('userpage.cart', compact('cart_list_item'))->render();
-            return response()->json(['newcartComponent' => $newCartComponent], 200);
+            $msg = '';
+            $product = Products::find($req->id);
+            if ($product->stock > $req->quantity) {
+                $cart = session()->get('cart');
+                $cart[$req->id]['quantity'] = $req->quantity;
+                session()->put('cart', $cart);
+            } else {
+                $msg = 'Tồn kho không đủ';
+            }
+            return response()->json(['msg' => $msg]);
         }
     }
 
-    function delCartItem(Request $req)
-    {
-        if ($req->itemID) {
-            $cart_list_item = session()->get('cart');
-            unset($cart_list_item[$req->id]);
-            session()->put('cart', $cart_list_item);
-            $newCartComponent = view('userpage.cart', compact('cart_list_item'))->render();
-            return response()->json(['newcartComponent' => $newCartComponent], 200);
+    function delCartItem(Request $req) {
+        if ($req->id) {
+            $cart = session()->get('cart');
+            unset($cart[$req->id]);
+            session()->put('cart', $cart);
+            $data = count($cart);
+            // data   Number of cart item
+            return response()->json([
+                'delCartItem' => $req->id,
+                'data' => $data
+            ]);
         };
     }
 
-    //Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
-    // nếu chưa thì thêm mới
-    //Ngược lại tăng số lượng thêm 1
-    private function checkCart($cart, $key, $qty)
-    {
+    private function checkCart($cart, $key, $qty) {
         if ($cart == '') {
             $cart[$key] = $qty;
         } else if (array_key_exists($key, $cart)) {
@@ -106,8 +110,7 @@ class CartController extends Controller
         }
         return $cart;
     }
-    public function getCheckoutListUserPage(Request $req)
-    {
+    public function getCheckoutListUserPage(Request $req) {
         // $data = DB::table('order_details')
         //     ->join('product_details', 'order_details.id_product_detail', '=', 'product_details.id_product_detail',)
         //     ->join('products', 'product_details.id_product', '=', 'products.id_product')
