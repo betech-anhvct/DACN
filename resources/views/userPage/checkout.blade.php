@@ -59,7 +59,7 @@
                                 @php
                                 $total = 0;
                                 @endphp
-                                @foreach (Session::get('cart') as $Cart)
+                                @foreach ($cart as $Cart)
                                 <li>
                                     {{ $Cart['name'] }} x {{ $Cart['quantity'] }}
                                     <span> {{number_format($Cart['quantity']*$Cart['price'] ) }} VND

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OrderDetail;
+use App\Models\Orders;
 use App\Models\Products;
 use App\Models\Vouchers;
 use Illuminate\Http\Request;
@@ -62,7 +63,7 @@ class CheckoutController extends Controller {
                 return redirect('cart')->with('error', 'Sản phẩm ' . $product->name . ' không đủ tồn kho');
             }
         }
-        return view('userPage.checkout');
+        return view('userPage.checkout', compact('cart'));
     }
 
     public function postOrder(Request $request) {

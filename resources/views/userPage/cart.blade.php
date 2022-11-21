@@ -109,8 +109,8 @@
                 },
                 success: function(data) {
                     if(data.msg){
-                        $(this).val(0)
                         alert(data.msg);
+                        window.location = "{{ url('cart') }}";
                     }
                 }
             });
