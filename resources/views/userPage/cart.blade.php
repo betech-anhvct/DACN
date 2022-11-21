@@ -5,10 +5,16 @@
     <!-- Shoping Cart Section Begin -->
     <section class="shoping-cart spad">
         <div class="container">
+            @if (Session::has('error'))
+            <div class="alert alert-danger">
+                <ul>
+                    <li>{{ Session::get('error') }}</li>
+                </ul>
+            </div>
+            @endif
             @if($cart_list_item)
             <div class="row" id="listCartItem">
                 <div class="col-lg-12">
-
                     <div class="shoping__cart__table">
                         <table>
                             <thead>
@@ -66,7 +72,12 @@
                         <ul>
                             <li>Tổng cộng <span id="totalCartPrice"></span></li>
                         </ul>
-                        <a href="{{ URL('/checkout') }}" class="primary-btn">TIẾN HÀNH THANH TOÁN</a>
+                        <form action="{{ url('checkout') }}" method="post">
+                            @csrf
+                            <div class="d-flex justify-content-center">
+                                <button class="primary-btn">TIẾN HÀNH THANH TOÁN</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -98,6 +109,7 @@
                 },
                 success: function(data) {
                     if(data.msg){
+                        $(this).val(0)
                         alert(data.msg);
                     }
                 }

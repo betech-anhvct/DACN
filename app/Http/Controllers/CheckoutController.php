@@ -2,29 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cart;
 use App\Models\OrderDetail;
-use App\Models\OrderDetails;
-use App\Models\Orders;
-use App\Models\ProductsDetail;
-use App\Models\User;
+use App\Models\Products;
 use App\Models\Vouchers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckoutController extends Controller
-{
-    public function checkVoucher(Request $request)
-    {
-        $voucher = Vouchers::where('voucher_code', $request->voucher_code)->first();
+class CheckoutController extends Controller {
+    public function checkVoucher(Request $request) {
+        $voucher = Vouchers::where('code', $request->voucher_code)->first();
         $discount = 0;
         $message = 'Mã đã hết hạn hoặc không tồn tại';
-        if ($voucher != '') {
-            if (($request->totalPrice) >= $voucher->condition_price) {
-                $message = "Áp dụng thành công";
-                $discount = $voucher->price_sale;
-            } else
-                $message = "Chưa đủ điều kiện áp dụng mã";
+        if ($voucher != '' && $voucher->quantity > 0) {
+            if ($voucher->begin_date <= now() && ($voucher->end_date ?? now()) >= now()) {
+                switch ($voucher->condition) {
+                    case Vouchers::CONDITION_ALL:
+                        if (($request->totalPrice) >= $voucher->product_list) {
+                            $message = "Áp dụng thành công";
+                            $discount = $voucher->discount;
+                        } else {
+                            $message = "Chưa đủ điều kiện áp dụng mã";
+                        }
+                        break;
+                    case Vouchers::CONDITION_PRODUCT:
+                        $message = "Chưa đủ điều kiện áp dụng mã";
+                        $listProduct = explode(',', $voucher->product_list);
+                        $cart = session()->get('cart');
+                        foreach ($listProduct as $id) {
+                            if (isset($cart[$id])) {
+                                $message = "Áp dụng thành công";
+                                $discount = $voucher->discount;
+                                break;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
         return response()->json(
             [
@@ -33,24 +48,47 @@ class CheckoutController extends Controller
             ]
         );
     }
-    public function postOrder(Request $request)
-    {
-        if (Auth::check()) {
-            $total = 0;
-            $id_voucher = 1;
-            $id_user = Auth::user()->id_user;
-            $cart_list = session()->get('cart');
-            foreach ($cart_list as $cart_item) {
-                if ($cart_item['quantity']< $cart_item['quantity']) {
-                    return redirect()->back()->with('error_remaining', 'Out of stock');
-                }
-                $total += $cart_item['quantity'] * $cart_item[' price'];
+
+    public function postCheckout() {
+        $cart = session()->get('cart');
+        if (!$cart) {
+            return redirect('index');
+        }
+        foreach ($cart as $id => $cart_item) {
+            $product = Products::find($id);
+            if ($cart_item['quantity'] > $product->stock) {
+                $cart[$product->id]['quantity'] = $product->stock;
+                session()->put('cart', $cart);
+                return redirect('cart')->with('error', 'Sản phẩm ' . $product->name . ' không đủ tồn kho');
             }
+        }
+        return view('userPage.checkout');
+    }
+
+    public function postOrder(Request $request) {
+        if (Auth::check()) {
+            $totalTemp = 0;
+            $total = 0;
+            $id_voucher = 0;
+            $id_user = Auth::user()->id;
+            $cart = session()->get('cart');
+            foreach ($cart as $id => $cart_item) {
+                $product = Products::find($id);
+                if ($cart_item['quantity'] > $product->stock) {
+                    $cart[$product->id]['quantity'] = $product->stock;
+                    session()->put('cart', $cart);
+                    return redirect('cart')->with('error', 'Sản phẩm ' . $product->name . ' không đủ tồn kho');
+                }
+                $totalTemp += $cart_item['quantity'] * $cart_item['price'];
+            }
+            $total = $totalTemp;
             if ($request->voucher != '') {
-                $total = $total - $this->checkDiscount($request->voucher, $total);
-                if ($total != 0) {
-                    $voucher = Vouchers::where('voucher_code', $request->voucher)->first();
-                    $id_voucher = $voucher->id_voucher;
+                $total = $totalTemp - $this->checkDiscount($request->voucher, $totalTemp);
+                if ($total != $totalTemp) {
+                    $voucher = Vouchers::where('code', $request->voucher)->first();
+                    $id_voucher = $voucher->id;
+                    $voucher->quantity -= 1;
+                    $voucher->save();
                 }
             }
             $order = [
@@ -63,32 +101,50 @@ class CheckoutController extends Controller
                 'status' => '1',
             ];
             $id_order = Orders::insertGetId($order);
-            foreach ($cart_list as $cart_item) {
-                $product_detail = ProductsDetail::where('id_product_detail', $cart_item->id_product_detail)->first();
+            foreach ($cart as $id => $cart_item) {
+                $product = Products::where('id', $id)->first();
                 $order_detail = [
                     'id_order' => $id_order,
-                    'id_product_detail' => $cart_item->id_product_detail,
-                    'price_sale' => $product_detail->price,
-                    'quantity' => $cart_item->pivot->quantity,
+                    'id_product' => $product->id,
+                    'price' => $product->price,
+                    'quantity' => $cart_item['quantity'],
                 ];
                 OrderDetail::insert($order_detail);
-                $product_detail->remaining -= $cart_item->pivot->quantity;
-                $product_detail->save();
+                $product->stock -= $cart_item['quantity'];
+                $product->save();
             }
-            Cart::where('id_user', $id_user)->delete();
             session()->remove('cart');
-            return redirect()->route('danh-sach-slide-user-page-index');
+            return redirect('index');
         } else {
             return redirect('login');
         }
     }
-    public function checkDiscount($voucher_code, $price)
-    {
+
+    public function checkDiscount($voucher_code, $totalPrice) {
+        $voucher = Vouchers::where('code', $voucher_code)->first();
         $discount = 0;
-        $voucher = Vouchers::where('voucher_code', $voucher_code)->first();
-        if ($voucher != '') {
-            if ($voucher->condition_price <= $price) {
-                $discount = $voucher->price_sale;
+        if ($voucher != '' && $voucher->quantity > 0) {
+            if ($voucher->begin_date <= now() && ($voucher->end_date ?? now()) >= now()) {
+                switch ($voucher->condition) {
+                    case Vouchers::CONDITION_ALL:
+                        if (($totalPrice) >= $voucher->product_list) {
+                            $discount = $voucher->discount;
+                        } else {
+                        }
+                        break;
+                    case Vouchers::CONDITION_PRODUCT:
+                        $listProduct = explode(',', $voucher->product_list);
+                        $cart = session()->get('cart');
+                        foreach ($listProduct as $id) {
+                            if (isset($cart[$id])) {
+                                $discount = $voucher->discount;
+                                break;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         return $discount;

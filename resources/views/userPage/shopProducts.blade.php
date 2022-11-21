@@ -70,10 +70,12 @@
                                                     </a>
                                                 </li>
                                                 <li>
+                                                    @if($product->stock > 0)
                                                     <a href="javascript:void(0);"
                                                         onclick="onAdding2Cart({{ $product->id }})">
                                                         <i class="fa fa-shopping-cart"></i>
                                                     </a>
+                                                    @endif
                                                 </li>
                                                 <div class="modal fade" id="add2Carrt" tabindex="-1" role="dialog"
                                                     aria-labelledby="add2Carrt" aria-hidden="true">

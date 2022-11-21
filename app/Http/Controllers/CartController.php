@@ -75,7 +75,7 @@ class CartController extends Controller {
         if ($req->id && $req->quantity) {
             $msg = '';
             $product = Products::find($req->id);
-            if ($product->stock > $req->quantity) {
+            if ($product->stock >= $req->quantity) {
                 $cart = session()->get('cart');
                 $cart[$req->id]['quantity'] = $req->quantity;
                 session()->put('cart', $cart);

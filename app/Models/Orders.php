@@ -33,8 +33,8 @@ class Orders extends BaseModel {
         return $this->belongsTo(Vouchers::class, 'id_user');
     }
 
-    public function rOrderDetails() {
-        return $this->hasMany(OrderDetails::class, 'id_order');
+    public function rOrderDetail() {
+        return $this->hasMany(OrderDetail::class, 'id_order');
     }
 
     public static function getRule() {

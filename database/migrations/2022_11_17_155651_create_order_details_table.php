@@ -18,6 +18,7 @@ class CreateOrderDetailsTable extends Migration
             $table->string('id_order');
             $table->string('id_product');
             $table->string('price')->default(0);
+            $table->string('quantity')->default(0);
             $table->timestamps();
         });
     }

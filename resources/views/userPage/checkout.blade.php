@@ -21,14 +21,15 @@
             <form action="{{url('order')}}" class="checkout-form" method="POST">
                 @csrf
                 <div class="row">
-                    <div class="col-lg-8 col-md-6">
+                    <div class="col-lg-6 col-md-6">
                         <div class="checkout__input">
                             <p>Họ và tên<span>*</span></p>
                             <input type="text" name="user_name" required value="{{Auth::user()->name}}" id="name">
                         </div>
                         <div class="checkout__input">
                             <p>Địa chỉ<span>*</span></p>
-                            <input type="text" name="address" required id="street" value="{{Auth::user()->address}}" class="checkout__input__add">
+                            <input type="text" name="address" required id="street" value="{{Auth::user()->address}}"
+                                class="checkout__input__add">
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
@@ -45,16 +46,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-lg-6 col-md-6">
                         <div class="checkout__order">
                             <h4>Đơn hàng</h4>
-                            <ul>
-                                    <form action="#">
-                                        <h4><input type="text" name="voucher" id="voucher" placeholder="Nhập mã giảm giá tại đây"></h4>
-                                        <button type="submit" class="site-btn">Sử dụng mã</button>
-                                    </form>
-                                    <div id="voucher_message"></div>
-                            </ul>
+                            <div>
+                                <div id="voucher_message"></div>
+                                <h4><input type="text" name="voucher" class="col-12" id="voucher"
+                                        placeholder="Nhập mã giảm giá tại đây"></h4>
+                            </div>
                             <div class="checkout__order__products">Sản Phẩm <span>Giá Sản phẩm</span></div>
                             <ul>
                                 @php
@@ -62,8 +61,9 @@
                                 @endphp
                                 @foreach (Session::get('cart') as $Cart)
                                 <li>
-                                        {{ $Cart['name'] }} x {{ $Cart['quantity'] }}<span> {{number_format( $Cart['quantity']
-                                            *  $Cart['price'] ) }} .VND</li> </span>
+                                    {{ $Cart['name'] }} x {{ $Cart['quantity'] }}
+                                    <span> {{number_format($Cart['quantity']*$Cart['price'] ) }} VND
+                                    </span>
                                 </li>
                                 @php
                                 $total += ($Cart['quantity'] * $Cart['price']);
@@ -72,15 +72,17 @@
                             </ul>
 
                             <div class="checkout__order__subtotal">Tổng tiền ước tính
-                                <span>
-                                    <li class="total-price"><span id="total_price">{{number_format($total) }}</span>
-                                </span>
+                                <span>&ensp;VND</span><span>{{ number_format($total) }}</span>
                             </div>
-                            <div class="checkout__order__total">Giá sau khi khuyến mãi <span>
-
-                            </span></div>
+                            <div class="checkout__order__total">
+                                <li>Giảm giá<span id="discount"></span><span>&ensp;-</span></li>
+                                <li>
+                                    Giá sau khi khuyến mãi
+                                    <span>&ensp;VND</span><span id="total_price">{{ number_format($total) }}</span>
+                                </li>
+                            </div>
                             <div class="order-btn">
-                            <button type="submit" class="site-btn">Đặt hàng</button>
+                                <button type="submit" class="site-btn">ĐẶT HÀNG</button>
                             </div>
                         </div>
                     </div>
@@ -91,34 +93,36 @@
     </div>
 </section>
 <!-- Checkout Section End -->
-        <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-    <script>
-        $('#voucher').on('change',function(){
+<!-- Js Plugins -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.nice-select.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/mixitup.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+<script>
+    $('#voucher').on('change',function(){
             var voucher_code = $(this).val();
             var totalPrice = {{ $total }};
             $.ajax({
                 url: '{{url('checkVoucher')}}',
                 type: 'post',
                 data: {
-                        '_token':'{{csrf_token()}}', voucher_code,totalPrice
+                        '_token':'{{csrf_token()}}',
+                        voucher_code,
+                        totalPrice
                 },
-                success: function(data){
+                success: function(data) {
                     $('#voucher_message').html(data.message);
                     var newPrice = totalPrice - data.discount;
                     $('#discount').html(data.discount);
-                    $('#total_price').html(newPrice);
+                    $('#total_price').html(newPrice.toLocaleString('en-US'));
                 }
             });
         });
-    </script>
+</script>
 
 
 

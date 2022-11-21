@@ -86,13 +86,8 @@ Route::post(
     ]
 );
 //-----------------------------checkout---------------------------//
-Route::get('/checkout', function () {
-    return view('userPage.checkout');
-});
-Route::post('checkout', [
-    'as' => 'cart-checkout-userpage',
-    'uses' => 'App\Http\Controllers\CartController@getCheckoutListUserPage'
-]);
+Route::post('checkout', 'App\Http\Controllers\CheckoutController@postCheckout');
+
 Route::post(
     'checkVoucher',
     [
@@ -103,7 +98,6 @@ Route::post(
 Route::post(
     'order',
     [
-        'as' => 'kiem-tra-voucher',
         'uses' => 'App\Http\Controllers\CheckoutController@postOrder',
     ]
 );

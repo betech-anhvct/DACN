@@ -20,7 +20,7 @@ class OrdersController extends BaseController {
     }
 
     public function showOrder($id) {
-        $order = Orders::with(['rUsers','rVouchers','rOrderDetails'])->find($id);
+        $order = Orders::with(['rUsers','rVouchers','rOrderDetail'])->find($id);
         $orders = Orders::where('status', 1)->get();
         return view('adminPage.ordersEdit', compact('order', 'orders'));
     }

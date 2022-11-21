@@ -29,6 +29,7 @@
                         <h3>{{ $product->name }}</h3>
                         <div class="product__details__price">{{ number_format($product->price) }} VND</div>
                         <p>{{ $product->description }}</p>
+                        @if ($product->stock>0)
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
@@ -39,8 +40,9 @@
                         <a href="#" onclick="onAdding2Cart({{ $product->id }})" class="primary-btn">Thêm vào giỏ
                             hàng</a>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        @endif
                         <ul>
-                            <li><b>tình trạng hàng</b> <span>@if ($product->status!=0)
+                            <li><b>tình trạng hàng</b> <span>@if ($product->stock>0)
                                     Còn hàng
                                     @else
                                     Tạm Ngừng Bán!

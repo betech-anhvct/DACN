@@ -11,8 +11,8 @@ class ProductsController extends BaseController {
     public $model = Products::class;
     public function getProduct() {
         $products = (Products::with('rImages')->where('status', '=', '1'))->get();
-        $topProducts = Products::all()->take(5);
-        $latedProducts = Products::all()->take(3);
+        $topProducts = Products::where('status', '=', '1')->take(5)->get();
+        $latedProducts = Products::where('status', '=', '1')->take(5)->get();
         $categories = Categories::where('status', '=', '1')->get();
         return view('userPage.shopProducts', compact('products', 'topProducts', 'categories', 'latedProducts'));
     }
@@ -34,8 +34,8 @@ class ProductsController extends BaseController {
 
     public function findByCategory($category) {
         $products = (Products::with('rImages')->where('status', '=', '1'))->get();
-        $topProducts = Products::all()->take(5);
-        $latedProducts = Products::all()->take(3);
+        $topProducts = Products::where('status', '=', '1')->take(5)->get();
+        $latedProducts = Products::where('status', '=', '1')->take(5)->get();
         $products = Products::with('rImages')->where('status', '=', '1')->where('id_category', $category)->get();
         $categories = Categories::where('status', '=', '1')->get();
         return view('userPage.shopProducts', compact('products', 'topProducts', 'categories', 'latedProducts'));
@@ -44,15 +44,15 @@ class ProductsController extends BaseController {
     public function searchProduct(Request $request) {
         if ($request->search) {
             $products = Products::where('id', 'LIKE', '%' . $request->search . '%')->orWhere('name', 'LIKE', '%' . $request->search . '%')->get();
-            $topProducts = Products::all()->take(5);
-            $latedProducts = Products::all()->take(3);
+            $topProducts = Products::where('status', '=', '1')->take(5)->get();
+            $latedProducts = Products::where('status', '=', '1')->take(5)->get();
             $categories = Categories::where('status', '=', '1')->get();
             return view('userPage.shopProducts', compact('products', 'topProducts', 'categories', 'latedProducts'));
         }
 
         $products = (Products::with('rImages')->where('status', '=', '1'))->get();
-        $topProducts = Products::all()->take(5);
-        $latedProducts = Products::all()->take(3);
+        $topProducts = Products::where('status', '=', '1')->take(5)->get();
+        $latedProducts = Products::where('status', '=', '1')->take(5)->get();
         $categories = Categories::where('status', '=', '1')->get();
         return view('userPage.shopProducts', compact('products', 'topProducts', 'categories', 'latedProducts'));
     }

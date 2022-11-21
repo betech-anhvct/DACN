@@ -138,7 +138,7 @@
                 <div class="hero__categories">
                     <div class="hero__categories__all">
                         <i class="fa fa-bars"></i>
-                        <span>Các loại thực phẩm</span>
+                        <span>Danh mục</span>
                     </div>
                     @php
                     $c = App\Models\Categories::where('status', '=', '1')->get();
