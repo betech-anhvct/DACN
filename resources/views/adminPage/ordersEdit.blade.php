@@ -58,11 +58,11 @@
                                     @csrf
                                     <div class="form-group col-6">
                                         <label>Trạng thái</label>
-                                        <select type="text" class="form-control" name="id_order"
+                                        <select type="text" class="form-control" name="status"
                                             value="{{ old('id_order') ?? $order->id_order }}">
-                                            <option value="0">Không</option>
-                                            @foreach ($orders as $order)
-                                            <option value="{{ $order->id }}">{{ $order->name }}</option>
+                                            @foreach (App\Models\Orders::getArrayStatus() as $name => $id)
+                                            <option value="{{ $id }}" @if((old('status')??$order->status)==$id)selected
+                                                @endif>{{ $name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -73,20 +73,71 @@
                                     </div>
                                     <div class="form-group col-6">
                                         <label>Tên người nhận</label>
-                                        <input type="text" class="form-control" name="email"
+                                        <input type="text" class="form-control" name="user_name"
                                             value="{{ old('user_name') ?? $order->user_name }}">
                                     </div>
                                     <div class="form-group col-6">
                                         <label>Địa chỉ</label>
-                                        <input type="text" class="form-control" name="email"
+                                        <input type="text" class="form-control" name="address"
                                             value="{{ old('email') ?? $order->address }}">
                                     </div>
                                     <div class="form-group col-6">
                                         <label>Số điện thoại</label>
-                                        <input type="text" class="form-control" name="email"
+                                        <input type="text" class="form-control" name="phone"
                                             value="{{ old('email') ?? $order->phone }}">
                                     </div>
+                                    <div class="table-responsive" id="order-table">
+                                        <table id="row-select" class="display table table-borderd table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tên sản phẩm</th>
+                                                    <th>Đơn giá</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Thành tiền</th>
+                                                </tr>
+                                            </thead>
 
+                                            <tbody>
+                                                @php
+                                                $totalTemp = 0;
+                                                @endphp
+                                                @foreach ($order->rOrderDetail as $detail)
+                                                <tr>
+                                                    <td>{{ $detail->rProducts->name }}</td>
+                                                    <td>{{ number_format($detail->price) }}</td>
+                                                    <td>{{ $detail->quantity }}</td>
+                                                    <td>{{ number_format($detail->price*$detail->quantity) }}</td>
+                                                </tr>
+                                                @php
+                                                $totalTemp +=$detail->price*$detail->quantity;
+                                                @endphp
+                                                @endforeach
+                                            </tbody>
+
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Tên sản phẩm</th>
+                                                    <th>Đơn giá</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Thành tiền</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td>Giảm giá</td>
+                                                <td>- {{
+                                                    number_format($totalTemp - $order->price_total)
+                                                    }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td>Tổng cộng</td>
+                                                <td>{{ number_format($order->price_total) }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                     <div class="form-group col-12">
                                         <button type="submit" class="btn btn-default col-2">Lưu</button>
                                     </div>

@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderDetail extends Model
-{
+class OrderDetail extends Model {
     use HasFactory;
     protected $fillable = [
         'id_order',
@@ -15,4 +14,7 @@ class OrderDetail extends Model
         'quantity',
     ];
 
+    public function rProducts() {
+        return $this->hasOne(Products::class, 'id', 'id_product');
+    }
 }

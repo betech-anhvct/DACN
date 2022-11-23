@@ -37,6 +37,32 @@ class Orders extends BaseModel {
         return $this->hasMany(OrderDetail::class, 'id_order');
     }
 
+    public function getStatus() {
+        $retVal = '';
+        if ($this->status) {
+            switch ($this->status) {
+                case self::STATUS_NEW:
+                    $retVal = 'Mới';
+                    break;
+                case self::STATUS_ACCEPT:
+                    $retVal = 'Chấp nhận';
+                    break;
+                case self::STATUS_DELIVERY:
+                    $retVal = 'Vận chuyển';
+                    break;
+                case self::STATUS_SUCCESS:
+                    $retVal = 'Thành công';
+                    break;
+                case self::STATUS_CANCER:
+                    $retVal = 'Hủy';
+                    break;
+                default:
+                    break;
+            }
+        }
+        return $retVal;
+    }
+
     public static function getRule() {
         return [
             'user_name' => ['required', 'string'],
@@ -54,6 +80,16 @@ class Orders extends BaseModel {
             'unique' => ':attribute đã được sử dụng',
             'string' => 'Phải là định dạng chuỗi',
             'max' => ':attribute có tối đa :max ký tự'
+        ];
+    }
+
+    public static function getArrayStatus() {
+        return [
+            'Mới' => self::STATUS_NEW,
+            'Chấp nhận' => self::STATUS_ACCEPT,
+            'Vận chuyển' => self::STATUS_DELIVERY,
+            'Thành công' => self::STATUS_SUCCESS,
+            'Hủy' => self::STATUS_CANCER,
         ];
     }
 }
