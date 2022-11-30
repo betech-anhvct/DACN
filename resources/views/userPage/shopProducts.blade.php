@@ -194,7 +194,9 @@
                     },
                     success: function(data) {
                         $("span#cartItem").html(data.data);
-                        alert(data.msg);
+                        $('#modalMsg').empty();
+                        $('#modalMsg').html(data.msg);
+                        $('#exampleModalCenter').modal('show')
                     }
                 })
             @else

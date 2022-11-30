@@ -26,30 +26,34 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            @foreach ($cart_list_item as $id => $item)
+                            @foreach ($products as $product)
                             <tbody>
-                                <tr id="cartItem{{ $id }}">
+                                <tr id="cartItem{{ $product->id }}">
                                     <td class="shoping__cart__item">
-                                        <img src="img/cart/cart-1.jpg" alt="">
-                                        <a href="{{ url('shopProductDetail/'.$id) }}">
-                                            <h5 style="color: green">{{ $item['name'] }}</h5>
+                                        <img style="width: 100px"
+                                            src="{{ asset('images/'.$product->rImages->first()->name) }}" alt="">
+                                        <a href="{{ url('shopProductDetail/'.$product->id) }}">
+                                            <h5 style="color: green">{{ $product->name }}</h5>
                                         </a>
                                     </td>
                                     <td class="shoping__cart__price">
-                                        <span id="cart_item_price_{{ $id }}">{{ number_format($item['price']) }}</span>
+                                        <span id="cart_item_price_{{ $product->id }}">{{ number_format($product->price)
+                                            }}</span>
                                         VND
                                     </td>
                                     <td class="shoping__cart__quantity">
-                                        <input id="{{ $id }}" class="col-5" type="number" name="qtyItem{{ $id }}"
-                                            value="{{ $item['quantity'] }}" min="0" oninput="this.value =
+                                        <input id="{{ $product->id }}" class="col-5" type="number"
+                                            name="qtyItem{{ $product->id }}"
+                                            value="{{ $cart_list_item[$product->id]['quantity'] }}" min="0" oninput="this.value =
                                             !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null">
                                     </td>
                                     <td class="shoping__cart__total">
-                                        <span id="cart_item_total_{{ $id }}">{{ number_format($item['quantity'] *
-                                            $item['price']) }}</span> VND
+                                        <span id="cart_item_total_{{ $product->id }}">{{
+                                            number_format($cart_list_item[$product->id]['quantity'] *
+                                            $product->price) }}</span> VND
                                     </td>
                                     <td class="shoping__cart__item__close">
-                                        <div value="{{ $id }}" onclick="onDelete({{ $id }})">
+                                        <div value="{{ $product->id }}" onclick="onDelete({{ $product->id }})">
                                             <span class="icon_close"></span>
                                         </div>
                                     </td>

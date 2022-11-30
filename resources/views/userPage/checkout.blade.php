@@ -82,7 +82,7 @@
                                 </li>
                             </div>
                             <div class="order-btn">
-                                <button type="submit" class="site-btn">ĐẶT HÀNG</button>
+                                <button type="submit" class="site-btn"><b>ĐẶT HÀNG</b></button>
                             </div>
                         </div>
                     </div>

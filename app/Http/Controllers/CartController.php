@@ -20,23 +20,10 @@ class CartController extends Controller {
         if (!Auth::check()) return redirect('/login');
         $cart_list_item = [];
         $cart_list_item = session()->get('cart');
-        return view('userpage.cart', compact('cart_list_item'));
+        $listId = array_keys($cart_list_item);
+        $products = Products::whereIn('id', $listId)->get();
+        return view('userpage.cart', compact('cart_list_item', 'products'));
     }
-    // private function getCartList($cart)
-    // {
-    //     $cart_list_item = [];
-    //     if ($cart == '') {
-    //     } else {
-    //         foreach ($cart as $id_detail => $quantity) {
-    //             $cart_list_item[] = ProductsDetail::where(
-    //                 [
-    //                     'id_product_detail' => $id_detail,
-    //                 ]
-    //             )->join('product', 'product.id_product', 'product_detail.id_product')->first();
-    //         }
-    //     }
-    //     return $cart_list_item;
-    // }
 
     public function getCardQuantity() {
         $cart = session()->get('cart');

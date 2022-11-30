@@ -76,7 +76,7 @@
                 @foreach ($topProducts as $product )
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                        <div class="product__item__pic set-bg" data-setbg="{{ asset('images/'.$product->rImages->first()->name) }}">
                             <ul class="product__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -109,7 +109,9 @@
                 },
                 success: function(data) {
                     $("span#cartItem").html(data.data);
-                    alert(data.msg);
+                    $('#modalMsg').empty();
+                    $('#modalMsg').html(data.msg);
+                    $('#exampleModalCenter').modal('show')
                 }
             })
         @else

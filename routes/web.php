@@ -226,4 +226,8 @@ Route::get('/admin/order/update/{id}', [
 Route::post('/admin/order/update/{id}', [
     'uses' => 'App\Http\Controllers\OrdersController@updateOrder'
 ]);
+
+Route::post('/admin/orders/delete/delete/{id}', [
+    'uses' => 'App\Http\Controllers\OrdersController@orderDelete'
+]);
 //-----------------------------END-ADMIN-PAGE----------------------------------//

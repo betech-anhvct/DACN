@@ -96,7 +96,7 @@
             </div>
             <div class="d-flex justify-content-around col-lg-6">
                 <nav class="header__menu">
-                    <ul>
+                    <ul class="d-flex">
                         <li class="active"><a href="{{ url('/index') }}">Trang chủ</a></li>
                         @auth
                         @if (Auth::user()->role != 0)
@@ -178,6 +178,16 @@
                     </div>
                 </div>
                 @endif
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center" id="modalMsg">
+                </div>
             </div>
         </div>
     </div>

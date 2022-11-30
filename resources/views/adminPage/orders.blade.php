@@ -106,7 +106,7 @@
                 isDelete = window.confirm('Bạn có muốn xóa ' + id);
                 if (isDelete) {
                     $.ajax({
-                        url: '{{ url('/admin/orders/delete') }}/' + id,
+                        url: '{{ url('/admin/orders/delete/delete') }}/' + id,
                         type: 'POST',
                         data: {
                             _token: "{{ csrf_token() }}",
