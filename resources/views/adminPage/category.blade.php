@@ -17,7 +17,7 @@
                             <div class="page-title">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ url('admin') }}">Trang chủ</a></li>
-                                    <li class="breadcrumb-item active">Người dùng</li>
+                                    <li class="breadcrumb-item active">Danh mục</li>
                                 </ol>
                             </div>
                         </div>

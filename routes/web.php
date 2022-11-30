@@ -42,6 +42,14 @@ Route::get('/shopProduct', [
     'uses' => 'App\Http\Controllers\ProductsController@getProduct'
 ]);
 
+Route::get('/shopProduct/category/{category}', [
+    'uses' => 'App\Http\Controllers\ProductsController@findByCategory'
+]);
+
+Route::get('/shopProduct/search', [
+    'uses' => 'App\Http\Controllers\ProductsController@searchProduct'
+]);
+
 route::get('/shopProductDetail/{sid}', [
     'uses' => 'App\Http\Controllers\ProductsController@getProductDetail'
 ]);
@@ -58,15 +66,41 @@ Route::post(
         'uses' => 'App\Http\Controllers\CartController@add2Cart',
     ]
 );
-Route::post('/cart', function () {
-    return view('userPage.cart');
-});
+// Route::post('/cart', function () {
+//     return view('userPage.cart');
+// });
 
+Route::post(
+    'updatecart',
+    [
+        'as' => 'cap-nhat-gio-hang',
+        'uses' => 'App\Http\Controllers\CartController@changeQuantity'
+    ]
+);
+
+Route::post(
+    'deletefromcart',
+    [
+        'as' => 'xoa-gio-hang',
+        'uses' => 'App\Http\Controllers\CartController@delCartItem'
+    ]
+);
 //-----------------------------checkout---------------------------//
-Route::get('/checkout', function () {
-    return view('userPage.checkout');
-});
+Route::post('checkout', 'App\Http\Controllers\CheckoutController@postCheckout');
 
+Route::post(
+    'checkVoucher',
+    [
+        'as' => 'kiem-tra-voucher',
+        'uses' => 'App\Http\Controllers\CheckoutController@checkVoucher',
+    ]
+);
+Route::post(
+    'order',
+    [
+        'uses' => 'App\Http\Controllers\CheckoutController@postOrder',
+    ]
+);
 
 //-----------------------------END-USER-PAGE-----------------------------------//
 
@@ -74,7 +108,8 @@ Route::get('/checkout', function () {
 Route::get('/admin', function () {
     if (Auth::check()) {
         if (Auth::user()->role != 0) {
-            return view('adminPage.home');
+            return redirect('admin/users');
+            // return view('adminPage.home');
         }
     }
     return redirect(url('/index'));
@@ -171,4 +206,24 @@ Route::post('/admin/voucher/update/{id}', [
     'uses' => 'App\Http\Controllers\VoucherController@updateVoucher'
 ]);
 
+//-----------------------------END-ADMIN-PAGE----------------------------------//
+Route::get('/admin/order', [
+    'uses' => 'App\Http\Controllers\OrdersController@getOrder'
+]);
+
+Route::get('/admin/order/create', [
+    'uses' => 'App\Http\Controllers\OrdersController@createOrder'
+]);
+
+Route::post('/admin/order/create', [
+    'uses' => 'App\Http\Controllers\OrdersController@storeOrder'
+]);
+
+Route::get('/admin/order/update/{id}', [
+    'uses' => 'App\Http\Controllers\OrdersController@showOrder'
+]);
+
+Route::post('/admin/order/update/{id}', [
+    'uses' => 'App\Http\Controllers\OrdersController@updateOrder'
+]);
 //-----------------------------END-ADMIN-PAGE----------------------------------//

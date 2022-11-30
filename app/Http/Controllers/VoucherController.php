@@ -41,6 +41,13 @@ class VoucherController extends BaseController {
     }
 
     public function storeVoucher(Request $request) {
+        $request->validate(['code' => ['unique:vouchers,code']], $this->model::getRuleTrans());
+        if (Vouchers::CONDITION_PRODUCT == $request->condition) {
+            if ($request->product_list) {
+                $product_list = implode(',', $request->product_list);
+                $request->merge(['product_list' => $product_list]);
+            }
+        }
         $this->store($request);
         $vouchers = $this->index();
         return redirect('/admin/voucher');
